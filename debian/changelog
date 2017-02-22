@@ -1,0 +1,5 @@
+passbolt (1.4.0-1~OdyX0) UNRELEASED; urgency=medium
+
+  * Initial release. (Closes: #XXXXXX)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 22 Feb 2017 10:03:42 +0100
