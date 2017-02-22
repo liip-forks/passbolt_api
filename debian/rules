@@ -4,7 +4,7 @@
 	dh $@ --with phpcomposer
 
 override_dh_phpcomposer:
-	dh_phpcomposer --sourcedirectory=app/
+	dh_phpcomposer --sourcedirectory=$(CURDIR)/debian/passbolt/usr/share/php/passbolt
 
 override_dh_auto_clean:
 override_dh_auto_build:
