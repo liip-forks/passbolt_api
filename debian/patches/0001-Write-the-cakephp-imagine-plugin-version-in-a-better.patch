@@ -1,0 +1,22 @@
+From bc5e31063c014709fa44b9e88f9bc4bef6530a80 Mon Sep 17 00:00:00 2001
+From: Didier Raboud <odyx@debian.org>
+Date: Wed, 22 Feb 2017 10:39:33 +0100
+Subject: Write the cakephp-imagine-plugin version in a better way
+
+---
+ app/composer.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/app/composer.json b/app/composer.json
+index 7c70e1210..0b440e520 100644
+--- a/app/composer.json
++++ b/app/composer.json
+@@ -19,7 +19,7 @@
+ 	},
+ 	"require": {
+ 		"burzum/file-storage": "0.*",
+-		"burzum/cakephp-imagine-plugin": "1.x",
++		"burzum/cakephp-imagine-plugin": "^1.0.1",
+ 		"burzum/cakephp-html-purifier" : "1.1.0",
+ 		"lorenzo/cakephp-email-queue": "1.0",
+ 		"singpolyma/openpgp-php" : "0.2.0",
