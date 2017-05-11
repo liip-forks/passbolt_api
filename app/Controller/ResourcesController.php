@@ -2,7 +2,8 @@
 /**
  * Resources Controller
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015-2016 Bolt Softwares Pvt Ltd
+ *                2017-present Passbolt SARL
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 
@@ -12,7 +13,7 @@ class ResourcesController extends AppController {
  * @var array $component application wide components
  */
 	public $components = [
-		'Filter',
+		'QueryString',
 		'EmailNotificator',
 	];
 
@@ -26,32 +27,44 @@ class ResourcesController extends AppController {
  *   path="/resources.json",
  *   summary="Find resources",
  * @SWG\Parameter(
- *     name="filter_keywords",
+ *     name="filter",
  *     in="query",
- *     description="Keywords to filter by",
- *     required=false,
- *     type="string"
- *   ),
- * @SWG\Parameter(
- *     name="filter_case",
- *     in="query",
- *     description="Case to filter by",
+ *     description="A list of filter",
  *     required=false,
  *     type="string",
  * 	   enum={
- * 		 "favorite",
- * 		 "shared"
+ * 		 "is-favorite",
+ * 		 "is-owned-by-be",
+ * 		 "is-shared-with-me"
  * 	   }
  *   ),
  * @SWG\Parameter(
- *     name="filter_order",
+ *     name="contain",
  *     in="query",
- *     description="Field to order by",
+ *     description="A list of associated models",
  *     required=false,
  *     type="string",
  * 	   enum={
- * 		 "modified",
- * 		 "expiry_date"
+ * 		 "Creator",
+ *     	 "Favorite",
+ *       "Modifier",
+ *       "Secret"
+ * 	   }
+ *   ),
+ * @SWG\Parameter(
+ *     name="order",
+ *     in="query",
+ *     description="A list of order",
+ *     required=false,
+ *     type="string",
+ * 	   enum={
+ * 	     "Resource.name",
+ * 	     "Resource.username",
+ * 	     "Resource.expiry_date",
+ * 	     "Resource.uri",
+ * 	     "Resource.description",
+ * 	     "Resource.created",
+ * 	     "Resource.modified",
  * 	   }
  *   ),
  * @SWG\Response(
@@ -68,7 +81,7 @@ class ResourcesController extends AppController {
  *           property="body",
  *           type="array",
  *           items={
- * 				"$ref"= "#/definitions/Resource"
+ * 				"$ref"="#/definitions/Resource"
  *           }
  *         )
  *       }
@@ -77,13 +90,22 @@ class ResourcesController extends AppController {
  * )
  */
 	public function index() {
-		// Extract the filter from the request
-		$findData = $this->Filter->fromRequest($this->request->query);
+		// Check request sanity
+		if (!$this->request->is('get')) {
+			throw new MethodNotAllowedException(__('Invalid request method, should be GET.'));
+		}
+
+		// Extract parameters from query string
+		$allowedQueryItems = [
+			'filter' => ['is-favorite', 'is-owned-by-be', 'is-shared-with-me'],
+			'contain' => [ 'Creator', 'Favorite', 'Modifier', 'Secret'],
+			'order' => $this->Resource->getFindAllowedOrder('ResourcesController::index'),
+		];
+		$params = $this->QueryString->get($allowedQueryItems);
 
 		// Retrieve the resources
-		$findOptions = $this->Resource->getFindOptions('index', User::get('Role.name'), $findData);
+		$findOptions = $this->Resource->getFindOptions('Resource::index', User::get('Role.name'), $params);
 		$resources = $this->Resource->find('all', $findOptions);
-
 		if (!$resources) {
 			$resources = [];
 		}
@@ -154,7 +176,7 @@ class ResourcesController extends AppController {
 		$data = [
 			'Resource.id' => $id
 		];
-		$o = $this->Resource->getFindOptions('view', User::get('Role.name'), $data);
+		$o = $this->Resource->getFindOptions('Resource::view', User::get('Role.name'), $data);
 		$this->set('data', $this->Resource->find('first', $o));
 		$this->Message->success();
 	}
@@ -197,7 +219,7 @@ class ResourcesController extends AppController {
 		}
 
 		// Email notification.
-		$authorizedUsers = $this->Resource->getAuthorizedUsers($id);
+		$authorizedUsers = $this->Resource->findAuthorizedUsers($id);
 
 		// Extract user ids from array.
 		$authorizedUsersIds = Hash::extract($authorizedUsers, '{n}.User.id');
@@ -229,7 +251,7 @@ class ResourcesController extends AppController {
 		}
 		// check if data was provided
 		if (!isset($this->request->data['Resource'])) {
-			return $this->Message->error(__('No data were provided'));
+			return $this->Message->error(__('No data was provided'));
 		}
 
 		// set the data for validation and save
@@ -237,7 +259,7 @@ class ResourcesController extends AppController {
 		$this->Resource->set($resourcepost);
 
 		// Get fields to validate.
-		$fields = $this->Resource->getFindFields('save', User::get('Role.name'));
+		$fields = $this->Resource->getFindFields('Resource::save', User::get('Role.name'));
 
 		// check if the data is valid.
 		if (!$this->Resource->validates(['fieldList' => $fields['fields']])) {
@@ -305,7 +327,7 @@ class ResourcesController extends AppController {
 		$this->Message->success(__('The resource was successfully saved'));
 
 		// Return the added resource.
-		$addedResourceFindOptions = $this->Resource->getFindOptions('view', User::get('Role.name'), [
+		$addedResourceFindOptions = $this->Resource->getFindOptions('Resource::view', User::get('Role.name'), [
 			'Resource.id' => $resource['Resource']['id']
 		]);
 		$addedResource = $this->Resource->find('first', $addedResourceFindOptions);
@@ -362,7 +384,7 @@ class ResourcesController extends AppController {
 
 		// check if data was provided
 		if (!isset($resourcepost['Resource'])) {
-			return $this->Message->error(__('No data were provided'));
+			return $this->Message->error(__('No data was provided'));
 		}
 
 		// Update the resource
@@ -413,7 +435,7 @@ class ResourcesController extends AppController {
 		$dataSource->commit();
 
 		// Email notification.
-		$authorizedUsers = $this->Resource->getAuthorizedUsers($id);
+		$authorizedUsers = $this->Resource->findAuthorizedUsers($id);
 
 		// Extract user ids from array.
 		$authorizedUsersIds = Hash::extract($authorizedUsers, '{n}.User.id');
@@ -432,49 +454,49 @@ class ResourcesController extends AppController {
 		$data = [
 			'Resource.id' => $resource['Resource']['id']
 		];
-		$options = $this->Resource->getFindOptions('view', User::get('Role.name'), $data);
+		$options = $this->Resource->getFindOptions('Resource::view', User::get('Role.name'), $data);
 		$resource = $this->Resource->find('first', $options);
 
 		$this->Message->success(__('The resource was successfully updated'));
 		$this->set('data', $resource);
 	}
 
-	/**
-	 * Get a list of users who have access to a resource
-	 * Renders a json object of users
-	 *
-	 * @param string $id the uuid of the resource
-	 * @return void
-	 *
-	 * @SWG\Get(
-	 *   path="/resources/{uuid}/users.json",
-	 *   summary="Find the users who have access to a resource",
-	 * @SWG\Parameter(
-	 * 		name="id",
-	 * 		in="path",
-	 * 		required=true,
-	 * 		type="string",
-	 * 		description="the uuid of the resource",
-	 *   ),
-	 * @SWG\Response(
-	 *     response=200,
-	 *     description="The list of users",
-	 *     @SWG\Schema(
-	 *       type="object",
-	 *       properties={
-	 *         @SWG\Property(
-	 *           property="header",
-	 *           ref="#/definitions/Header"
-	 *         ),
-	 *         @SWG\Property(
-	 *           property="body",
-	 *           ref="#/definitions/Resource"
-	 *         )
-	 *       }
-	 *     )
-	 *   )
-	 * )
-	 */
+/**
+ * Get a list of users who have access to a resource
+ * Renders a json object of users
+ *
+ * @param string $id the uuid of the resource
+ * @return void
+ *
+ * @SWG\Get(
+ *   path="/resources/{uuid}/users.json",
+ *   summary="Find the users who have access to a resource",
+ * @SWG\Parameter(
+ * 		name="id",
+ * 		in="path",
+ * 		required=true,
+ * 		type="string",
+ * 		description="the uuid of the resource",
+ *   ),
+ * @SWG\Response(
+ *     response=200,
+ *     description="The list of users",
+ *     @SWG\Schema(
+ *       type="object",
+ *       properties={
+ *         @SWG\Property(
+ *           property="header",
+ *           ref="#/definitions/Header"
+ *         ),
+ *         @SWG\Property(
+ *           property="body",
+ *           ref="#/definitions/Resource"
+ *         )
+ *       }
+ *     )
+ *   )
+ * )
+ */
 	public function users($id = null) {
 		// check if the resource id is provided
 		if (!isset($id)) {
@@ -508,7 +530,7 @@ class ResourcesController extends AppController {
 		$userResourcePermissions = $UserResourcePermission->find('all', $findPermissionOptions);
 
 		// Retrieve the users
-		$usersIds = Hash::extract($userResourcePermissions, '{n}.Permission.User.id');
+		$usersIds = Hash::extract($userResourcePermissions, '{n}.UserResourcePermission.user_id');
 		$User = Common::getModel('User');
 		$findUserData = [
 			'User.ids' => $usersIds

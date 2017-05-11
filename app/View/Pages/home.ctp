@@ -28,12 +28,10 @@
 		app : {
 			name: "<?php echo Configure::read('App.name'); ?>",
 			description: "<?php echo Configure::read('App.punchline'); ?>",
-			copyright: "<?php echo Configure::read('App.copyright'); ?>",
 			title: "<?php echo Configure::read('App.title'); ?>",
 			version: {
 				number: "<?php echo Configure::read('App.version.number'); ?>",
-				name: "<?php echo Configure::read('App.version.name'); ?>",
-				song: "<?php echo Configure::read('App.version.song'); ?>"
+				name: "<?php echo Configure::read('App.version.name'); ?>"
 			},
 			url: "<?php echo Router::url('/',true); ?>",
 			debug: "<?php echo Configure::read('debug'); ?>",
