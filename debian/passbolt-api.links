@@ -2,4 +2,4 @@
 /usr/share/fonts-font-awesome/fonts/fontawesome-webfont.ttf /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.ttf
 
 # libjs-passbolt-embedded
-/usr/share/javascript/passbolt-lib/ /usr/share/php/passbolt-api/webroot/js/lib/
+/usr/share/javascript/passbolt-lib /usr/share/php/passbolt-api/webroot/js/lib
