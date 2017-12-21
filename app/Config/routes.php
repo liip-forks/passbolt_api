@@ -2,7 +2,7 @@
 /**
  * Routes configuration
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 /**
@@ -110,6 +110,7 @@
 	Router::connect('/users/index/*', array('controller' => 'users', 'action' => 'index'));
 	Router::connect('/register', array('controller' => 'users', 'action' => 'register'));
 	Router::connect('/register/thankyou', array('controller' => 'users', 'action' => 'register_thankyou'));
+	Router::connect('/users/*/:dry-run', array('controller' => 'users', 'action' => 'delete', '[method]' => 'DELETE'), array('pass' => array('dry-run')));
 	Router::connect('/users/*', array('controller' => 'users', 'action' => 'delete', '[method]' => 'DELETE'));
 	Router::connect('/users/password/*', array('controller' => 'users', 'action' => 'editPassword', '[method]' => 'PUT'));
 	Router::connect('/users/avatar/*', array('controller' => 'users', 'action' => 'editAvatar', '[method]' => 'POST'));

@@ -2,7 +2,7 @@
 /**
  * User Model
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 
@@ -73,7 +73,6 @@ class User extends AppModel {
  * @link http://api20.cakephp.org/class/model#
  */
 	public $actsAs = [
-		'SuperJoin',
 		'Containable',
 		'Trackable'
 	];
@@ -107,6 +106,7 @@ class User extends AppModel {
 	public $hasMany = [
 		'GroupUser',
 		'Secret',
+		'UserResourcePermission',
 		// Custom join with ControllerLog to retrieve the last logged in date.
 		// The results of this will be processed in the afterFind
 		// and integrated directly in the user object with column name last_logged_in.
@@ -610,6 +610,12 @@ class User extends AppModel {
 								'Role.name' => [Role::USER, Role::ADMIN],
 							]
 						];
+						// if user is admin, is-active filter is enabled
+						if ($role == Role::ADMIN) {
+							if (isset($data['filter']['is-active'])) {
+								$conditions['conditions']['User.active'] = $data['filter']['is-active'] ? 1 : 0;
+							}
+						}
 						// if user is simple user, we do not allow him to see non active users.
 						if ($role == Role::USER) {
 							$conditions['conditions']['User.active'] = 1;
@@ -1037,6 +1043,7 @@ class User extends AppModel {
  */
 	public function softDelete($userId) {
 		$Permission = ClassRegistry::init('Permission');
+		$GroupUser = ClassRegistry::init('GroupUser');
 
 		// Begin transaction
 		$dataSource = $this->getDataSource();
@@ -1057,7 +1064,17 @@ class User extends AppModel {
 		$deleteOptions = ['Permission.aro_foreign_key' => $userId];
 		if (!$Permission->deleteAll($deleteOptions, false)) {
 			$dataSource->rollback();
-			throw new Exception(__('Unable to delete de user\'s permissions'));
+			throw new Exception(__('Unable to delete the user\'s permissions'));
+		}
+
+		// Remove the user from the groups the user was member of.
+		$groupsUsers = $GroupUser->find('all', ['conditions' => [
+			'user_id' => $userId
+		]]);
+		foreach ($groupsUsers as $groupUser) {
+			if (!$GroupUser->deleteGroupUser($groupUser)) {
+				throw new Exception(__('Unable to remove the user %s from the group %s', $userId, $groupUser['GroupUser']['group_id']));
+			}
 		}
 
 		// Everything fine, we commit.

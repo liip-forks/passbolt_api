@@ -2,7 +2,7 @@
 /**
  * Our Data Extras command
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 
@@ -67,7 +67,7 @@ class DataShell extends AppShell {
 /**
  * Get the models/tasks for a given data install context
  *
- * @param string $options default, unittests or seleniumtests
+ * @param string $options default, tests
  * @return array
  */
 	private function __getModels($options = 'default') {
@@ -82,43 +82,40 @@ class DataShell extends AppShell {
 					'DataDefault.PermissionType',
 					'DataDefault.Profile',
 				);
-			case 'seleniumtests':
+			case 'tests':
 				return array(
 					// defaults
 					'DataDefault.SchemaMigration',
 					'DataDefault.Role',
 					'DataDefault.PermissionType',
-					// same users than unit tests
-					'DataUnitTests.User',
-					'DataDefault.Gpgkey', // needs to be done when all users are inserted
-					'DataUnitTests.Profile',
-					'DataUnitTests.Avatar',
-					// resource and permission are different though
-					'DataSeleniumTests.Resource',
-					'DataUnitTests.Group',
-					'DataUnitTests.GroupUser',
-					'DataSeleniumTests.Permission',
-					'DataSeleniumTests.Secret',
-					//'DataUnitTests.Comment'
+					// tests data set
+					'DataTests.User',
+					'DataDefault.Gpgkey', // Based on the users in the database, needs to be done after DataTests.User
+					'DataTests.Profile',
+					'DataTests.Avatar',
+					'DataTests.Resource',
+					'DataTests.Group',
+					'DataTests.GroupUser',
+					'DataTests.Permission',
+					'DataTests.Secret',
+					'DataTests.Comment'
 				);
-			case 'unittests':
+			case 'largetests':
 				return array(
 					// defaults
 					'DataDefault.SchemaMigration',
 					'DataDefault.Role',
 					'DataDefault.PermissionType',
-					// all the things!
-					'DataUnitTests.User',
-					'DataDefault.Gpgkey',
-					'DataUnitTests.Profile',
-					'DataUnitTests.Avatar',
-					'DataSeleniumTests.Resource',
-					// testing only
-					'DataUnitTests.Group',
-					'DataUnitTests.GroupUser',
-					'DataSeleniumTests.Permission',
-					'DataSeleniumTests.Secret',
-					'DataUnitTests.Comment'
+					// tests data set
+					'DataTests.LargeUser',
+					'DataTests.LargeGpgkey', // Based on the users in the database, needs to be done after DataTests.User
+					'DataTests.LargeProfile',
+					'DataTests.Avatar',
+					'DataTests.LargeResource',
+					'DataTests.LargeGroup',
+					'DataTests.LargeGroupUser',
+					'DataTests.LargePermission',
+					'DataTests.Secret',
 				);
 		}
 	}
@@ -126,7 +123,7 @@ class DataShell extends AppShell {
 /**
  * Import data test for the defined models
  *
- * @param string $options default, unittests or seleniumtests
+ * @param string $options default, tests
  * @return void
  */
 	public function import($options = 'default') {

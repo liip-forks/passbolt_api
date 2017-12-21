@@ -2,12 +2,18 @@
 /**
  * Insert Model Task
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 
 App::import('Model', 'User');
 class ModelTask extends AppShell {
+
+/**
+ * Should the data be validated on save?
+ * @var bool
+ */
+	public $validateOnSave = true;
 
 /**
  * Get Model
@@ -61,7 +67,7 @@ class ModelTask extends AppShell {
 	public function insertItem($item, $Model) {
 		$Model->create();
 		try {
-			if (!$Model->save($item)) {
+			if (!$Model->save($item, $this->validateOnSave)) {
 				$this->out('Unable to validate data for insert in ' . $Model->name);
 				$this->out(pr($Model->data));
 				$this->out(pr($Model->validationErrors));
@@ -74,6 +80,20 @@ class ModelTask extends AppShell {
 			$this->out($e->getMessage());
 			$this->out('<error>Installation failed</error>');
 			die;
+		}
+	}
+
+	/**
+	 * Insert an item using the model save functionality
+	 *
+	 * @param array $item array to insert
+	 * @param Model $Model object to insert the data with
+	 * @return void
+	 */
+	public function tryInsertItem($item, $Model) {
+		$Model->create();
+		if (!$Model->save($item, $this->validateOnSave)) {
+			throw new ValidationException('Validation failed');
 		}
 	}
 }

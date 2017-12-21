@@ -2,10 +2,8 @@
 /**
  * Role Model Test
  *
- * @copyright	 (c) 2015-present Bolt Softwares Pvt Ltd
- * @package	   app.Test.Case.Model.RoleTest
- * @since		 version 2.12.7
- * @license	   http://www.passbolt.com/license
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
+ * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 App::uses('User', 'Model');
 App::uses('Role', 'Model');
@@ -364,12 +362,12 @@ ffvdXuT2n3w=
 
 		// Test find conditions cases == default.
 		foreach($defaultCases as $case) {
-			$this->assertEquals($default, GpgKey::getFindConditions($case), "Find conditions should be empty for case : $case");
+			$this->assertEquals($default, Gpgkey::getFindConditions($case), "Find conditions should be empty for case : $case");
 		}
 
 		// Test find conditions cases != default.
 		foreach($customCases as $case) {
-			$this->assertNotEquals($default, GpgKey::getFindConditions($case), "Find conditions missing for case : $case");
+			$this->assertNotEquals($default, Gpgkey::getFindConditions($case), "Find conditions missing for case : $case");
 		}
 	}
 
@@ -399,6 +397,26 @@ ffvdXuT2n3w=
 	 */
 	public function testCheckCreatedIsInPastNotNull() {
 		$this->assertFalse($this->Gpgkey->checkCreatedIsInPast(null));
+	}
+
+	/**
+	 * Check checkCreatedIsInPast parameter is null
+	 */
+	public function testUidContainValidEmail() {
+		$uids = [
+			'Ada Lovelace <ada@passbolt.com>',
+			'Ada <ada+test@passbolt.com>'
+		];
+		foreach ($uids as $uid) {
+			$this->assertTrue(Gpgkey::uidContainValidEmail($uid));
+		}
+		$uids = [
+			'Ada Lovelace',
+			'Ada <adatestpassbolt.com>'
+		];
+		foreach ($uids as $uid) {
+			$this->assertFalse(Gpgkey::uidContainValidEmail($uid));
+		}
 	}
 
 }

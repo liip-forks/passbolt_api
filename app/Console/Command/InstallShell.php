@@ -2,11 +2,12 @@
 /**
  * Our Install command
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 App::uses('AppShell', 'Console/Command');
 App::uses('AnonymousStatistic', 'Model');
+App::uses('Healthchecks', 'Lib');
 
 // Uses Gpg Utility.
 if (!class_exists('\Passbolt\Gpg')) {
@@ -14,6 +15,23 @@ if (!class_exists('\Passbolt\Gpg')) {
 }
 
 class InstallShell extends AppShell {
+
+/**
+ * Display the passbolt ascii banner
+ *
+ * @return void
+ */
+	protected function _welcome() {
+		$this->hr();
+		$this->out('     ____                  __          ____  ');
+		$this->out('    / __ \____  _____ ____/ /_  ____  / / /_ ');
+		$this->out('   / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/ ');
+		$this->out('  / ____/ /_/ (__  |__  ) /_/ / /_/ / / /    ');
+		$this->out(' /_/    \__,_/____/____/_.___/\____/_/\__/   ');
+		$this->out('');
+		$this->out(' Open source password manager for teams');
+		$this->hr();
+	}
 
 /**
  * Get command options parser
@@ -80,14 +98,20 @@ class InstallShell extends AppShell {
  * @return bool
  */
 	public function main() {
-        $this->out(' Install shell');
+		// Root user is not allowed to execute this command.
+		// This command needs to be executed with the same user as the webserver.
+		$this->rootNotAllowed();
+
+		$this->out(' Install shell');
         $this->hr();
 
-		// init gnupg keyring
+		// Perform a sanity check and init gnupg keyring
 		try {
-			$this->initGpgKeyring();
+			$this->installationHealthchecks();
+			$this->_initGpgKeyring();
 		} catch(Exception $e) {
 			$this->out($e->getMessage());
+			$this->out('Please run ./app/Console/cake passbolt healthcheck for more information and help.');
 			$this->out('<error>Installation failed.</error>');
 			return false;
 		}
@@ -112,20 +136,10 @@ class InstallShell extends AppShell {
 		$data = $this->param('data');
 		$this->data($data);
 
-		// Configure anonymous statistics.
-		$this->_configureAnonymousStatistics();
-
 		// register the admin user
 		$registerAdmin = $this->param('no-admin');
 		if (!$registerAdmin) {
 			$this->_registerAdmin($this->param('admin-username'), $this->param('admin-first-name'), $this->param('admin-last-name'));
-		}
-
-		// Check whether anonymous statistics should be sent.
-		AnonymousStatistic::reloadConfigFile();
-		if (Configure::read('AnonymousStatistics.send') === true) {
-			$AnonymousStatistic = Common::getModel('AnonymousStatistic');
-			$AnonymousStatistic->send(AnonymousStatistic::CONTEXT_INSTALL);
 		}
 
 		if (!isset($this->params['cache']) || $this->params['cache'] == 'true') {
@@ -135,6 +149,9 @@ class InstallShell extends AppShell {
 			$this->_setCacheAvatars();
 		}
 
+		// Configure and send anonymous statistics.
+		$this->_sendAnonymousStatistics();
+
 		// that's all folks
 		$this->hr();
 		$this->out('');
@@ -143,40 +160,56 @@ class InstallShell extends AppShell {
 		return true;
 	}
 
-
-	/**
-	 * Configure anonymous statistics.
-	 */
+/**
+ * Configure anonymous statistics.
+ *
+ * @return void
+ */
 	protected function _configureAnonymousStatistics() {
 		AnonymousStatistic::reloadConfigFile();
-		$param = $this->param('send-anonymous-statistics');
+
+		// Each instance gets an UUID
 		$instanceId = Configure::read('AnonymousStatistics.instanceId');
 		$isConfigured = !empty($instanceId) && Common::isUuid($instanceId);
-
-		// User choice.
-		$choice = false;
-
 		if (!$isConfigured) {
 			$instanceId = Common::uuid();
 		}
 
 		// If param was provided, we store param value as user choice.
-		if (!empty($param)) {
-			$choice = $param == 'true' ? true : false;
-		}
 		// if param was not provided, ask the user.
-		else {
-			$input = $this->in(__d(
-				'cake_console',
-				__("We need you to help make passbolt better by sending anonymous usage statistics. Ok?\n(see: %s)", Configure::read('AnonymousStatistics.help'))
-			), array('y', 'n'), 'n');
-			$choice = $input == 'y' ? true : false;
+		$choice = false;
+		$param = $this->param('send-anonymous-statistics');
+		if (!empty($param)) {
+			$choice = ($param == 'true');
+		} else {
+			$msg = "We need you to help make passbolt better by sending anonymous usage statistics. Ok?\n(see: %s)";
+			$input = $this->in(
+				__d('cake_console',
+				__($msg, Configure::read('AnonymousStatistics.help'))),
+				array('y', 'n'), 'n'
+			);
+			$choice = ($input == 'y');
 		}
 
 		// Write config file.
 		$AnonymousStatistic = Common::getModel('AnonymousStatistic');
 		$AnonymousStatistic->writeConfigFile($instanceId, $choice);
 	}
+
+/**
+ * Send anonymous statistics
+ * Configure and check whether anonymous statistics should be sent.
+ *
+ * @return void
+ */
+	 protected function _sendAnonymousStatistics () {
+	 	$this->_configureAnonymousStatistics();
+		AnonymousStatistic::reloadConfigFile();
+		if (Configure::read('AnonymousStatistics.send') === true) {
+			$AnonymousStatistic = Common::getModel('AnonymousStatistic');
+			$AnonymousStatistic->send(AnonymousStatistic::CONTEXT_INSTALL);
+		}
+	 }
 
 /**
  * Check that a default app config variable has been overridden
@@ -197,66 +230,72 @@ class InstallShell extends AppShell {
 	}
 
 /**
+ * Installation healthchecks
+ */
+	public function installationHealthchecks() {
+		// Make sure the baseline config files are present
+		$checks = Healthchecks::configFiles();
+		foreach ($checks['configFile'] as $file => $enabled) {
+			if (!$enabled) {
+				throw new CakeException('One config file is missing (' . $file . ').');
+			}
+		}
+
+		// Check application url config
+		$checks = Healthchecks::core();
+		if (!$checks['core']['fullBaseUrl'] && !$checks['core']['validFullBaseUrl']) {
+			throw new CakeException('The fullBaseUrl is not set or not valid. ' . $checks['core']['info']['fullBaseUrl']);
+		}
+
+		// Check that a GPG configuration id is provided
+		$checks = Healthchecks::gpg();
+		if (!$checks['gpg']['gpgKey'] || !$checks['gpg']['gpgKeyPublic'] || !$checks['gpg']['gpgKeyPrivate']) {
+			throw new CakeException('The GnuPG config for the server is not available or incomplete');
+		}
+		// Check if keyring is present and writable
+		if (!$checks['gpg']['gpgHome'] || !$checks['gpg']['gpgHomeWritable']) {
+			throw new CakeException("The GPG keyring location is not set or not writable.");
+		}
+
+		// In production don't accept default GPG server key
+		if (!Configure::read('debug')) {
+			if (!$checks['gpg']['gpgKeyNotDefault']) {
+				$msg = "Default GnuPG server key cannot be used in production. ";
+				$msg .= "Please change the values of 'GPG.server' in 'APP/Config/app.php' with your server key information. ";
+				$msg .= "If you don't have yet a server key, please generate one, take a look at the install documentation.";
+				throw new CakeException($msg);
+			}
+		}
+
+		// Check that there is a public and private key found at the given path
+		if (!$checks['gpg']['gpgKeyPublicReadable']) {
+		 throw new CakeException("No public key found at the given path " . Configure::read('GPG.serverKey.public'));
+		}
+		if (!$checks['gpg']['gpgKeyPrivateReadable']) {
+			throw new CakeException("No private key found at the given path " . Configure::read('GPG.serverKey.private'));
+		}
+
+		// Check that the public and private key match the fingerprint
+		if (!$checks['gpg']['gpgKeyPrivateFingerprint'] || !$checks['gpg']['gpgKeyPublicFingerprint']) {
+			throw new CakeException('The server key fingerprint does not match the fingerprint mentioned in app/config.php');
+		}
+		if (!$checks['gpg']['gpgKeyPublicEmail']) {
+			throw new CakeException('The server public key should have an email id.');
+		}
+	 }
+
+/**
  * Init the gpg keyring
  *
  * @return void
  * @throws CakeException
  */
-	public function initGpgKeyring() {
-		$gpg = new Passbolt\Gpg();
+	protected function _initGpgKeyring() {
 		$config = Configure::read();
-
-		// Check that a GPG configuration id is provided
-		if (!isset($config['GPG']['serverKey']['fingerprint'])
-			|| !isset($config['GPG']['serverKey']['private'])
-			|| !isset($config['GPG']['serverKey']['public'])
-		) {
-			throw new CakeException('The GnuPG config for the server is not available or incomplete');
-		}
-		$keyid = $config['GPG']['serverKey']['fingerprint'];
-		$privateKeyPath = $config['GPG']['serverKey']['private'];
-		$publicKeyPath = $config['GPG']['serverKey']['public'];
-
-		// Check if keyring is present and writable
-		$keyring = getenv('GNUPGHOME');
-		if (!is_writable($keyring)) {
-			throw new CakeException("GPG Keyring is not available or not writable. Check: " . $keyring);
-		}
-
-		// In production don't accept default GPG server key
-		if (!Configure::read('debug')) {
-			if (!$this->_checkDefaultAppConfigOverriden('GPG.serverKey.fingerprint')) {
-				throw new CakeException("Default GnuPG server key cannot be used in production. Please change the values of 'GPG.server' in 'APP/Config/app.php' with your server key information. If you don't have yet a server key, please generate one, take a look at the install documentation.");
-			}
-		}
-
-		// Check that there is a private key found at the given path
-		if (!file_exists($privateKeyPath)) {
-			throw new CakeException("No private key found at the given path $privateKeyPath");
-		}
-		$privateKeydata = file_get_contents($privateKeyPath);
-
-		// Check that the private key match the fingerprint
-		$privateKeyInfo = $gpg->getKeyInfo($privateKeydata);
-		if ($privateKeyInfo['fingerprint'] != $keyid) {
-			throw new CakeException('The private key does not match the fingerprint mentioned in the config');
-		}
-
-		// Check that there is a public key found at the given path
-		if (!file_exists($publicKeyPath)) {
-			throw new CakeException("No public key found at the given path $publicKeyPath");
-		}
-		$publicKeydata = file_get_contents($publicKeyPath);
-
-		// Check that the public key match the fingerprint
-		$publicKeyInfo = $gpg->getKeyInfo($publicKeydata);
-		if ($publicKeyInfo['fingerprint'] != $keyid) {
-			throw new CakeException('The public key does not match the fingerprint mentioned in the config');
-		}
-
 		// Import the private key in the GPG keyring
 		try {
-			$gpg->importKeyIntoKeyring($privateKeydata);
+			$gpg = new Passbolt\Gpg();
+			$gpg->importKeyIntoKeyring(file_get_contents($config['GPG']['serverKey']['private']));
 		} catch (Exception $e) {
 			throw new CakeException('The GnuPG key for the server could not be imported');
 		}

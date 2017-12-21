@@ -76,7 +76,6 @@ class Resource extends AppModel {
  * @link http://api20.cakephp.org/class/model#
  */
 	public $actsAs = [
-		'SuperJoin',
 		'Containable',
 		'Trackable',
 		'Favoritable',
@@ -146,10 +145,10 @@ class Resource extends AppModel {
 					'message' => __('A name is required')
 				],
 				'alphaNumericAndSpecial' => [
-					'rule' => "/^[\p{L}\d ,.\-_\(\[\)\]']*$/u",
+					'rule' => "/^[\p{L}\d ,.:;?@#&!\=\-_\(\[\)\]\{\}'\"\/\+\\\]*$/u",
 					'required' => 'create',
 					'allowEmpty' => false,
-					'message' => __('Name should only contain alphabets, numbers and the special characters : , . - _ ( ) [ ] \''),
+					'message' => __('Name should only contain alphabets, numbers and the special characters : , . : ; ? ! @ & - _ = ( ) [ ] { } \' " / +'),
 				],
 				'size' => [
 					'rule' => ['lengthBetween', 3, 64],
@@ -157,14 +156,14 @@ class Resource extends AppModel {
 				]
 			],
 			'username' => [
-				'alphaNumeric' => [
+				'alphaNumericAndSpecial' => [
 					'allowEmpty' => true,
 					'required' => false,
-					'rule' => '/^[a-zA-Z0-9\-_@.]*$/',
-					'message' => __('Username should only contain alphabets, numbers only and the special characters : - _ . @'),
+					'rule' => "/^[\p{L}\d ,.:;?@#&!\=\-_\(\[\)\]\{\}'\"\/\+\\\]*$/u",
+					'message' => __('Username should only contain alphabets, numbers and the special characters : , . : ; ? ! # @ & - _ = ( ) [ ] { } \' " / +'),
 				],
 				'size' => [
-					'rule' => ['lengthBetween', 3, 64],
+					'rule' => ['lengthBetween', 1, 64],
 					'message' => __('Username should be between %s and %s characters long', 3, 64),
 				]
 			],
@@ -185,8 +184,8 @@ class Resource extends AppModel {
 			],
 			'uri' => [
 				'url' => [
-					'rule' => "/^[\p{L}\d ,.:;?@!\-_\(\[\)\]'\"\/]*$/u",
-					'message' => __('URI should only contain alphabets, numbers and the special characters : , . : ; ? ! @ - _ ( ) [ ] \' " /.'),
+					'rule' => "/^[\p{L}\d ,.:;?@!=+%$&*#~\-_\(\[\)\]'\"\/]*$/u",
+					'message' => __('URI should only contain alphabets, numbers and the special characters : , . : ; ? ! # @ & - _ ( ) [ ] \' " /.'),
 					'allowEmpty' => true,
 				],
 				'size' => [
@@ -196,10 +195,10 @@ class Resource extends AppModel {
 			],
 			'description' => [
 				'alphaNumericAndSpecial' => [
-					'rule' => "/^[\p{L}\d ,.:;?@!\-_\(\[\)\]'\"\/]*$/u",
+					'rule' => "/^[\p{L}\d ,.:;?@#&!\=\-_\(\[\)\]\{\}'\"\/\+\s\\\]*$/u",
 					'required' => false,
 					'allowEmpty' => true,
-					'message' => __('Description should only contain alphabets, numbers and the special characters : , . : ; ? ! @ - _ ( ) [ ] \' " /')
+					'message' => __('Description should only contain alphabets, numbers and the special characters : , . : ; ? ! # @ & - _ = ( ) [ ] { } \' " / +')
 				],
 				'maxLength' => [
 					'rule' => ['lengthBetween', 0, 10000],
@@ -254,6 +253,15 @@ class Resource extends AppModel {
 				if (isset($data['filter']['is-shared-with-me'])) {
 					$conditions['conditions']['AND'][] = ['Resource.created_by <>' => User::get('User.id')];
 					if (!isset($data['contain']) || !in_array('Modifier', $data['contain'])) $data['contain'][] = 'Modifier';
+				}
+				if (isset($data['filter']['is-shared-with-group'])) {
+					$GroupResourcePermission = Common::getModel('GroupResourcePermission');
+					$resources = $GroupResourcePermission->findAuthorizedResources($data['filter']['is-shared-with-group']);
+					$resourceIds = Hash::extract($resources, '{n}.Resource.id');
+					$conditions['conditions']['AND']['Resource.id'] = $resourceIds;
+				}
+				if (isset($data['has-resource_id'])) {
+					$conditions['conditions']['AND']['Resource.id'] = $data['has-resource_id'];
 				}
 				break;
 
@@ -362,6 +370,8 @@ class Resource extends AppModel {
 						'expiry_date',
 						'uri',
 						'description',
+						'created_by',
+						'modified_by',
 					]
 				];
 				break;

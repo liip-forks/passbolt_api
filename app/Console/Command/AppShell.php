@@ -33,22 +33,22 @@ class AppShell extends Shell {
  * @return void
  */
     protected function _welcome() {
-        $this->hr();
-        $this->out('     ____                  __          ____  ');
-        $this->out('    / __ \____  _____ ____/ /_  ____  / / /_ ');
-        $this->out('   / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/ ');
-        $this->out('  / ____/ /_/ (__  |__  ) /_/ / /_/ / / /    ');
-        $this->out(' /_/    \__,_/____/____/_.___/\____/_/\__/   ');
-        $this->out('');
-        $this->out(' Open source password manager for teams');
-        $this->hr();
+		$this->out();
     }
 
 /**
- * Execute function
- *
- * @return void
+ * Some of the passbolt commands shouldn't be executed as root.
+ * By instance it's the case of the Healtcheck command that needs to be executed with the same user as your web server.
  */
-	public function execute() {
+	public function rootNotAllowed() {
+		if (PROCESS_USER == 'root') {
+			$this->out('<error>Passbolt commands cannot be executed as root.</error>');
+			$this->out('');
+			$this->out('The command should be executed with the same user as your web server.');
+			$this->out('By instance : su -s /bin/bash -c "' . APP . 'Console/cake COMMAND" HTTP_USER');
+			$this->out('HTTP_USER can differ regarding your environment : www-data, nginx, http');
+			exit(1);
+		}
 	}
+
 }

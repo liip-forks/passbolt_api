@@ -3,6 +3,11 @@ App::uses('Validation', 'Utility');
 App::uses('Migration', 'Lib/Migration');
 App::uses('HttpSocket', 'Network/Http');
 
+// Uses Gpg Utility.
+if (!class_exists('\Passbolt\Gpg')) {
+	App::import( 'Model/Utility', 'Gpg' );
+}
+
 /**
  * Class Healthchecks
  *
@@ -34,10 +39,30 @@ class Healthchecks {
     static public function environment() {
         $checks['environment']['phpVersion'] = (version_compare(PHP_VERSION, '5.2.8', '>='));
         $checks['environment']['pcre'] = (Validation::alphaNumeric('cakephp'));
-        $checks['environment']['tmpWritable'] = is_writable(TMP);
-        $checks['environment']['imgPublicWritable'] = is_writable(IMAGES . DS . 'public');
+		$checks['environment']['tmpWritable'] = self::_checkRecursiveDirectoryWritable(TMP);
+        $checks['environment']['imgPublicWritable'] = self::_checkRecursiveDirectoryWritable(IMAGES . 'public/');
         return $checks;
     }
+
+	/**
+	 * Check that a directory and its content are writable
+	 *
+	 * @param $path
+	 * @return boolean
+	 */
+	static private function _checkRecursiveDirectoryWritable($path) {
+		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+		foreach ( $iterator as $name => $fileInfo ) {
+			if (in_array($fileInfo->getFilename(), ['.', '..', 'empty'])) {
+				continue;
+			}
+			if (!is_writable($name)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 /**
  * Return config file checks:
@@ -72,7 +97,7 @@ class Healthchecks {
         $checks['core']['debugDisabled'] = (Configure::read('debug') === 0);
         $checks['core']['salt'] = (Configure::read('Security.salt') !== 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
         $checks['core']['cipherSeed'] = (Configure::read('Security.cipherSeed') !== '76859309657453542496749683645');
-        $checks['core']['fullBaseUrl'] = (Configure::read('App.fullBaseUrl') !== 'http://localhost');
+        $checks['core']['fullBaseUrl'] = (Configure::read('App.fullBaseUrl') !== null);
         $checks['core']['validFullBaseUrl'] = Validation::url(Configure::read('App.fullBaseUrl'), true);
         $checks['core']['info']['fullBaseUrl'] = Configure::read('App.fullBaseUrl');
 
@@ -200,6 +225,7 @@ class Healthchecks {
         $checks['application']['seleniumDisabled'] = !Configure::read('App.selenium.active');
         $checks['application']['registrationClosed'] = !Configure::read('App.registration.public');
         $checks['application']['jsProd'] = (Configure::read('App.js.build') === 'production');
+		$checks['application']['emailNotificationEnabled'] = !(preg_match('/false/', json_encode(Configure::read('EmailNotification.send'))) === 1);
 
         $checks = array_merge(Healthchecks::appUser(), $checks);
         return $checks;
@@ -212,16 +238,103 @@ class Healthchecks {
  * @access private
  */
      static public function gpg() {
+     	 // Check gpg php module is installed and enabled
          $checks['gpg']['lib'] = (class_exists('gnupg'));
+
+         // Check fingerprint is set
          $checks['gpg']['gpgKey'] = (Configure::read('GPG.serverKey.fingerprint') != null);
-         $checks['gpg']['gpgKeyDefault'] = (Configure::read('GPG.serverKey.fingerprint') != '2FC8945833C51946E937F9FED47B0811573EE67E');
-         $checks['gpg']['gpgHome'] = (getenv('GNUPGHOME') !== false);
-         $checks['gpg']['gpgHomeWritable'] = false;
-         if($checks['gpg']['gpgHome']) {
-             $checks['gpg']['info']['gpgHome'] = getenv('GNUPGHOME');
-             $checks['gpg']['gpgHomeWritable'] = is_writable(getenv('GNUPGHOME'));
-         }
-         return $checks;
+         $checks['gpg']['gpgKeyNotDefault'] = (Configure::read('GPG.serverKey.fingerprint') != '2FC8945833C51946E937F9FED47B0811573EE67E');
+
+         // If no keyring location has been set, use the default one ~/.gnupg.
+		 $gnupgHome = getenv('GNUPGHOME');
+		 if (empty($gnupgHome)) {
+			 $uid = posix_getuid();
+			 $user = posix_getpwuid($uid);
+			 $gnupgHome = $user['dir'] . '/.gnupg';
+		 }
+
+		 $checks['gpg']['info']['gpgHome'] = $gnupgHome;
+		 $checks['gpg']['gpgHome'] = file_exists($checks['gpg']['info']['gpgHome']);
+		 $checks['gpg']['gpgHomeWritable'] = is_writable($checks['gpg']['info']['gpgHome']);
+
+         // Check key file exist and are readable
+		 $checks['gpg']['gpgKeyPublic'] = (Configure::read('GPG.serverKey.public') != null);
+		 $checks['gpg']['gpgKeyPublicReadable'] = is_readable(Configure::read('GPG.serverKey.public'));
+		 $checks['gpg']['gpgKeyPrivate'] = (Configure::read('GPG.serverKey.private') != null);
+		 $checks['gpg']['info']['gpgKeyPrivate'] = Configure::read('GPG.serverKey.private');
+		 $checks['gpg']['gpgKeyPrivateReadable'] = is_readable(Configure::read('GPG.serverKey.private'));
+
+		 // Check that the private key match the fingerprint
+		 $checks['gpg']['gpgKeyPrivateFingerprint'] = false;
+		 $checks['gpg']['gpgKeyPublicFingerprint'] = false;
+		 $checks['gpg']['gpgKeyPublicEmail'] = false;
+		 if($checks['gpg']['gpgKeyPublicReadable'] && $checks['gpg']['gpgKeyPrivateReadable'] && $checks['gpg']['gpgKey']) {
+			 $gpg = new Passbolt\Gpg();
+			 $privateKeydata = file_get_contents(Configure::read('GPG.serverKey.private'));
+			 $privateKeyInfo = $gpg->getKeyInfo($privateKeydata);
+			 if ($privateKeyInfo['fingerprint'] === Configure::read('GPG.serverKey.fingerprint')) {
+				 $checks['gpg']['gpgKeyPrivateFingerprint'] = true;
+			 }
+			 $publicKeydata = file_get_contents(Configure::read('GPG.serverKey.public'));
+			 $publicKeyInfo = $gpg->getKeyInfo($publicKeydata);
+			 if ($publicKeyInfo['fingerprint'] === Configure::read('GPG.serverKey.fingerprint')) {
+				$checks['gpg']['gpgKeyPublicFingerprint'] = true;
+			 }
+			 App::uses('Gpgkey', 'Model');
+			 $checks['gpg']['gpgKeyPublicEmail'] = Gpgkey::uidContainValidEmail($publicKeyInfo['uid']);
+		 }
+
+		 // Check that the private key is present in the keyring.
+		 $checks['gpg']['gpgKeyPrivateInKeyring'] = false;
+		 if ($checks['gpg']['gpgHome'] && Configure::read('GPG.serverKey.fingerprint')) {
+			 $gpg = new Passbolt\Gpg();
+			 $keyInfo = $gpg->getKeyInfoFromKeyring(Configure::read('GPG.serverKey.fingerprint'));
+			 if (!empty($keyInfo)) {
+				 $checks['gpg']['gpgKeyPrivateInKeyring'] = true;
+			 }
+		 }
+
+		 // Check that the server can be used for encrypting/decrypting
+		 if ($checks['gpg']['gpgKeyPrivateInKeyring']) {
+			 $_gpg = new gnupg();
+			 $_gpg->addencryptkey(Configure::read('GPG.serverKey.fingerprint'));
+			 $_gpg->addsignkey(Configure::read('GPG.serverKey.fingerprint'), Configure::read('GPG.serverKey.passphrase'));
+			 $messageToEncrypt = 'test message';
+			 $encryptedMessage = '';
+
+			 // Try to encrypt a message.
+			 try {
+				 $encryptedMessage = $_gpg->encryptsign($messageToEncrypt);
+				 if ($encryptedMessage !== false) {
+					 $checks['gpg']['canEncrypt'] = true;
+				 } else {
+					 $checks['gpg']['canEncrypt'] = false;
+				 }
+			 }
+			 catch ( Exception $e ) {
+				 $checks['gpg']['canEncrypt'] = false;
+			 }
+
+			 // Try to decrypt the message.
+			 if ($checks['gpg']['canEncrypt']) {
+				 $_gpg->adddecryptkey(Configure::read('GPG.serverKey.fingerprint'), Configure::read('GPG.serverKey.passphrase'));
+				 $decryptedMessage = '';
+
+				 try {
+					 $_gpg->decryptverify($encryptedMessage, $decryptedMessage);
+					 if ($decryptedMessage !== $messageToEncrypt) {
+						 $checks['gpg']['canDecrypt'] = false;
+					 } else {
+						 $checks['gpg']['canDecrypt'] = true;
+					 }
+				 }
+				 catch ( Exception $e ) {
+					 $checks['gpg']['canDecrypt'] = false;
+				 }
+			 }
+		 }
+
+		 return $checks;
      }
 
 /**

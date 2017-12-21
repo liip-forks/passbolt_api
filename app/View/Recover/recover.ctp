@@ -2,7 +2,7 @@
 /**
  * Register form view (for guest role)
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 $this->assign('title',	__('Recover an account'));
@@ -26,8 +26,8 @@ $inputDefault = ['inputDefaults' => ['error' => [ 'attributes' => ['class' => 'm
 					<legend><?php echo __('Please enter your username and password'); ?></legend>
 					<?php echo $this->Form->input('User.username', array('label' => __('Enter your email'), 'class' =>'required fluid')); ?>
 				</fieldset>
-				<div class="actions-wrapper">
-					<div class="submit"><input type="submit" class="button primary" value="<?php echo __('start recovery'); ?>"></div>
+				<div class="submit-wrapper">
+					<input type="submit" class="button primary big" value="<?php echo __('start recovery'); ?>">
 				</div>
 				<?php echo $this->Form->end();?>
 			</div>

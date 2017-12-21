@@ -18,13 +18,26 @@ class AnonymousStatistic extends AppModel {
 /**
  * Config file name.
  */
-	const ConfigFile = 'anonymous_statistics';
+	const CONFIG_FILE = 'anonymous_statistics';
+
+/**
+ * Config file path.
+ */
+	const CONFIG_FILE_DIR = 'config';
 
 /**
  * Statistics context (install or update).
  */
 	const CONTEXT_INSTALL = 'install';
 	const CONTEXT_UPDATE = 'update';
+
+/**
+ * Get config file path.
+ * @return string
+ */
+	public static function getConfigFilePath() {
+		return TMP . self::CONFIG_FILE_DIR;
+	}
 
 /**
  * Find Instance statistics.
@@ -55,8 +68,8 @@ class AnonymousStatistic extends AppModel {
  * Force reloading configuration file.
  */
 	public static function reloadConfigFile() {
-		if (file_exists(APP . 'Config' . DS . self::ConfigFile .'.php')) {
-			Configure::load(self::ConfigFile); // anonymous statistics config
+		if (file_exists(self::getConfigFilePath() . DS . self::CONFIG_FILE . '.php')) {
+			Configure::load(self::CONFIG_FILE, 'tmp'); // anonymous statistics config
 		}
 	}
 
@@ -69,7 +82,7 @@ class AnonymousStatistic extends AppModel {
  */
 	public static function writeConfigFile($instanceId, $send) {
 		// Build config file path.
-		$configFilePath = APP . 'Config' . DS . self::ConfigFile . '.php';
+		$configFileFullPath = self::getConfigFilePath() . DS . self::CONFIG_FILE . '.php';
 
 		// Config file content.
 		$v = new View();
@@ -77,7 +90,10 @@ class AnonymousStatistic extends AppModel {
 		$configFileContent = $v->render('Elements/config/anonymous_statistics' , 'ajax');
 
 		// Write file.
-		$write = file_put_contents($configFilePath, $configFileContent);
+		if (!file_exists(self::getConfigFilePath())) {
+			mkdir(AnonymousStatistic::getConfigFilePath());
+		}
+		$write = file_put_contents($configFileFullPath, $configFileContent);
 
 		return $write;
 	}

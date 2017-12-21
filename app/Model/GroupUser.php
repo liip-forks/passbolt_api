@@ -2,7 +2,7 @@
 /**
  * GroupUser Model
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 
@@ -295,6 +295,30 @@ class GroupUser extends AppModel {
 			'group' => 'GroupUser.group_id HAVING count_rows = ' . count($usersIds)
 		]);
 		return Hash::extract($result, '{n}.GroupUser.group_id');
+	}
+
+/**
+ * Find groups having as sole manager a given user.
+ * @param $userId
+ * @return array
+ */
+	public function findGroupsIdsHavingSoleManager($userId) {
+		$result = [];
+		$groupUsers = $this->find('all', [
+			'fields' => [
+				'GroupUser.group_id',
+			],
+			'conditions' => [
+				'GroupUser.user_id' => $userId,
+				'GroupUser.is_admin' => 1
+			]
+		]);
+		foreach ($groupUsers as $groupUser) {
+			if ($this->countGroupAdmins($groupUser['GroupUser']['group_id']) < 2) {
+				$result[] = $groupUser['GroupUser']['group_id'];
+			}
+		}
+		return $result;
 	}
 
 /**

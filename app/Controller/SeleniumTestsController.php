@@ -2,7 +2,7 @@
 /**
  * SeleniumTests Controller
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 // Uses EmailQueue.
@@ -142,12 +142,12 @@ class SeleniumTestsController extends AppController {
  * @param string $dummy data set name
  * @return void
  */
-	public function resetInstance($dummy = 'seleniumtests') {
+	public function resetInstance($dummy = 'tests') {
 		// Install job shell.
 		$job = new InstallShell();
 		$job->startup();
 		// If dummy data is requested.
-		if ($dummy == 'default' || $dummy == 'seleniumtests' || $dummy == 'unittests') {
+		if ($dummy == 'default' || $dummy == 'tests') {
 			$job->params['data'] = $dummy;
 			$job->params['quick'] = 'true';
 		}
@@ -165,13 +165,7 @@ class SeleniumTestsController extends AppController {
  */
 	public function error404($case = 'message') {
 		$this->request->invalidateFields = 'stuffs';
-		switch ($case) {
-			case 'exception':
-				throw new NotFoundException();
-			default:
-				$this->Message->error('404 test not found', ['code' => 404]);
-				return;
-		}
+		throw new NotFoundException();
 	}
 
 /**

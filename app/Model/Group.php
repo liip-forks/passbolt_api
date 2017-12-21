@@ -15,7 +15,6 @@ class Group extends AppModel {
 
 	public $actsAs = [
 		'Trackable',
-		'SuperJoin',
 		'Containable'
 	];
 
@@ -66,7 +65,6 @@ class Group extends AppModel {
 				],
 				'unique' => [
 					'shared' => false,
-					'on' => 'create',
 					'rule' => ['checkGroupNameIsUnique', null],
 					'message' => __('The group name provided is already used by another group'),
 				],
@@ -90,7 +88,10 @@ class Group extends AppModel {
 			case 'Group::edit':
 			case 'Group::view':
 			case 'Group::exists':
-				$conditions = ['conditions' => ['Group.deleted' => 0, 'Group.id' => $data['Group.id']]];
+				$conditions = ['conditions' => [
+					'Group.deleted' => 0,
+					'Group.id' => $data['Group.id'],
+				]];
 				break;
 
 			case 'Group::index':
@@ -116,6 +117,9 @@ class Group extends AppModel {
 				}
 				if (!empty($data['exclude-groups'])) {
 					$conditions['conditions']['Group.id NOT IN'] = $data['exclude-groups'];
+				}
+				if (isset($data['has-group_id'])) {
+					$conditions['conditions']['AND']['Group.id'] = $data['has-group_id'];
 				}
 				break;
 
@@ -339,6 +343,7 @@ class Group extends AppModel {
 				'conditions' => [
 					'Group.name' => $check['name'],
 					'Group.deleted' => false,
+					'Group.id <>' => $this->id
 				],
 			]);
 			return empty($exist);

@@ -2,7 +2,97 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.5.0-RC1]
+## [Unreleased]
+
+## [1.6.5] - 2017-09-12
+### Added
+- PASSBOLT-2383: Add + and \ to the list of allowed characters for the Resource fields: name, username and description
+
+### Fixed
+- PASSBOLT-2371: Force the charset of the cake_sessions table in utf8
+- PASSBOLT-2325: As system administrator I shouldn't be able to execute passbolt CLI commands as root
+- PASSBOLT-2397: As system administrator I should see in the healthcheck if app/tmp content and app/webroot/img/public content are writable
+- PASSBOLT-1991: As system administrator I should see in the healthcheck if the server key can be used for encrypting/decrypting
+
+### Security
+- PASSBOLT-2409: Noopener on resource url in password workspace
+- PASSBOLT-2402: XSS on resource url in password workspace
+
+## [1.6.4] - 2017-08-31
+### Fixed
+- PASSBOLT-2358: As a user registering on the demo instance I must understand the disclaimer
+
+## [1.6.3] - 2017-08-21
+### Fixed
+- PASSBOLT-2316: Merge the selenium & phpunit dummy data sets
+- PASSBOLT-2317: Speed up dummy secret creation task
+- PASSBOLT-2327: Add a large set of dummy data for performance testing
+- PASSBOLT-2282: As admin on the user workspace, I should be able to distinguish visually the users who haven't activated their account yet
+
+## [1.6.2] - 2017-08-12
+### Added
+- PASSBOLT-2284: As an administrator I can set which notifications are enabled for my organization #98
+- PASSBOLT-2284: As an administrator I can prevent encrypted secret or username to be sent in email notification #114
+
+### Fixed
+- PASSBOLT-2301: Remove additional slashes in passbolt.js urls such as model/users::find #142
+- PASSBOLT-2270: Fix modified_by not set on resource edit regression
+- PASSBOLT-2271: Fix no wrap issue on resource description
+- PASSBOLT-1943: As an administrator I should not be able to install passbolt on a hostname that is not RFC3986 compliant
+- PASSBOLT-1937: As an administrator I should not be be able to install passbolt with a server key without an email id
+- PASSBOLT-2002: Refactor install script to reuse healthcheck library
+
+## [1.6.1] - 2017-07-26
+### Added
+- PASSBOLT-2147: As a group member I should receive a notification when my role in the group has changed
+- PASSBOLT-2148: As a group manager I should receive a notification when a user who is part of one (or more) groups I manage is deleted
+- PASSBOLT-2225: As a demo user it should be explicit that I need to use a throway email account
+- PASSBOLT-2133: As LU I should be able to filter passwords by group on the passwords workspace
+- PASSBOLT-2012: As a user I can see which groups a user is a member of from the sidebar
+
+### Fixed
+- PASSBOLT-2171: The group list component should be marked as ready once the API request is completed
+- PASSBOLT-2172: Newly added group manager shouldn't receive the group update summary notification
+- PASSBOLT-2174: Edit group dialog should be marked as ready if an admin edit a group the admin is not group manager
+- PASSBOLT-2155: As AD I shouldn't be able to delete as user if the user is the sole group manager of a group
+- PASSBOLT-2075: Users should be removed from the groups they are member of after a soft delete operation
+- PASSBOLT-1934: GITHUB-40, GITHUB-120: As a user I should be allowed to add the a ldap path as username
+- PASSBOLT-2156: GITHUB-94: As a user I should be allowed to add text in JSON format in the description
+- PASSBOLT-2122: GITHUB-85: Username should be Minimum 1 characters in length (and not 3)
+- PASSBOLT-2180: GITHUB-85: As a user I should be allowed to add a space in a resource username
+- PASSBOLT-2125: GITHUB-86: As a logged in user creating/editing a password I should be able to use new line characters in the description
+- PASSBOLT-2188: Regression: As LU when I search for a user it shouldn't make an API request
+- PASSBOLT-2234: Regression: As newly added GM I shouldn't receive the group update summary when I'm just added as GM
+- PASSBOLT-2235: As AD editing a group the dialog shouldn't be marked as ready until the members list is loaded
+- PASSBOLT-2105: Anonymous statistics: fix "Warning Error: file_put_contents" issue at installation
+- PASSBOLT-2005: PR#44: Update allowed characters in a uri
+
+## [1.6.0] - 2017-06-21
+### Added
+- PASSBOLT-2099: As a user I should receive a notification when I am added to a group
+- PASSBOLT-2100: As a user I should receive a notification when I am deleted of a group
+- PASSBOLT-2102: As a group manager I should receive a notification when another group manager added a user to a group I manage
+- PASSBOLT-2103: As a group manager I should receive a notification when another group manager removed a user from a group I manage
+- PASSBOLT-2140: As a group manager I should receive a notification when another group manager changed the role of a user of a group I manage
+- PASSBOLT-2138: The TLS parameter should be part of the default email configuration
+
+### Fixed
+- PASSBOLT-2044: As an admin I shouldn’t be able to delete a user who is the sole owner of passwords shared with others
+- PASSBOLT-2078: As GM/AD I shouldn't be able to add a user who didn't complete the registration process to a group I edit/create
+- PASSBOLT-2111: As an admin I should be able to install passbolt under mydomain.tld/passbolt
+- PASSBOLT-2142: As an admin I should not see multiple ASCII banner when running the install script
+- PASSBOLT-1959: As LU when I unshare a password with a user or a group, associated secrets should be destroyed
+- PASSBOLT-1954: Security: Trackable behavior should override created_by and deleted_by when provided
+
+## [1.5.1] - 2017-05-23
+### Fixed
+- PASSBOLT-2070: Delete unused code / exclude external libs from coverage
+- PASSBOLT-2071: Drop exec bits from files which don't need them (@OdyX GITHUB PR #67)
+- PASSBOLT-2073: As AP I should see a warning on the login page if the plugin and the api are not compatible
+- PASSBOLT-2029: PHP7 compatibility, fix deprecated cakePHP String class calls (@leomazzo GITHUB-64)
+- PASSBOLT-2074: Delete confirmation dialogs should fit the latest styleguide
+
+## [1.5.0] - 2017-05-16
 ### Added
 - PASSBOLT-1950: As a user I can see which groups a password is shared with from the sidebar
 - PASSBOLT-1953: As a user I can share a password with a group
@@ -29,7 +119,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - PASSBOLT-1881: Add support for groups in the permission system
 - PASSBOLT-1952: Add support for groups in the fixtures
 - PASSBOLT-1928: Deploy styleguide with groups support
-	
+
 ### Fixed
 - PASSBOLT-1614: Abstract user/password grid functions into the mad framework grid library
 - PASSBOLT-1571: API query string filters: better naming conventions and implementation
@@ -235,7 +325,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - LU: Logged in user
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v1.6.5...HEAD
+[1.6.5]: https://github.com/passbolt/passbolt_api/compare/v1.6.4...v1.6.5
+[1.6.4]: https://github.com/passbolt/passbolt_api/compare/v1.6.3...v1.6.4
+[1.6.3]: https://github.com/passbolt/passbolt_api/compare/v1.6.2...v1.6.3
+[1.6.2]: https://github.com/passbolt/passbolt_api/compare/v1.6.1...v1.6.2
+[1.6.1]: https://github.com/passbolt/passbolt_api/compare/v1.6.0...v1.6.1
+[1.6.0]: https://github.com/passbolt/passbolt_api/compare/v1.5.1...v1.6.0
+[1.5.1]: https://github.com/passbolt/passbolt_api/compare/v1.5.0...v1.5.1
+[1.5.0]: https://github.com/passbolt/passbolt_api/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/passbolt/passbolt_api/compare/v1.3.2...v1.4.0
 [1.3.2]: https://github.com/passbolt/passbolt_api/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/passbolt/passbolt_api/compare/v1.3.0...v1.3.1

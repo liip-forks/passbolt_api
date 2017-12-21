@@ -1,5 +1,6 @@
 import 'mad/view/component/tree';
 import 'app/component/sidebar';
+import 'app/component/sidebar_section/user_groups';
 import 'app/view/component/user_sidebar';
 import 'app/view/template/component/user_sidebar.ejs!';
 
@@ -37,6 +38,23 @@ var UserSidebar = passbolt.component.UserSidebar = passbolt.component.Sidebar.ex
 		this.setViewData('user', this.options.selectedItem);
 	},
 
+	/**
+	 * After start hook.
+	 * @see {mad.Component}
+	 */
+	afterStart: function () {
+		this._super();
+
+		// active field will not be provided for non admin users,
+		// but we still want to display information regarding groups.
+		if (this.options.selectedItem.active === undefined || this.options.selectedItem.active == '1') {
+			// Instantiate the groups list component for the current user.
+			var userGroups = new passbolt.component.sidebarSection.UserGroups($('#js_user_groups', this.element), {
+				selectedUser: this.options.selectedItem
+			});
+			userGroups.start();
+		}
+	},
 
 	/* ************************************************************** */
 	/* LISTEN TO THE VIEW EVENTS */

@@ -2,7 +2,7 @@
 /**
  * Main application configuration file
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 $config = [
@@ -52,7 +52,8 @@ $config = [
 		// Tell GPG where to find the keyring
 		// Needs to be available by the user the webserver is running as
 		'env' => [
-			// you can set this to false if you want to use *nix $GNUPGHOME environment variable
+			// You can set this to true if you want to customize the location of the keyring.
+			// If false, it will use by default the keyring of the webserver user ~/.gnupg.
 			'setenv' => true,
 			// otherwise you can set the location here
 			// typically on Centos it would be in '/usr/share/httpd/.gnupg'
@@ -71,7 +72,7 @@ $config = [
 		// Test keys location
 		// Only used for running unit or selenium tests
 		'testKeys' => [
-			'path' => APP . 'Plugin' . DS . 'DataUnitTests' . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS . 'gpg' . DS,
+			'path' => APP . 'Plugin' . DS . 'DataTests' . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS . 'gpg' . DS,
 		]
 	],
 	// Define when logs entry are stored
@@ -151,4 +152,41 @@ $config = [
 		// Instance ID. (will be populated at installation).
 		'instanceId' => '',
 	],
+	// Email notification settings
+	'EmailNotification' => [
+		// Allow to disable displaying the armored secret in the email
+		// WARNING: make sure you have backups in place if you disable these
+		// see. https://www.passbolt.com/help/tech/backup
+		'show' => [
+			'secret' => true,
+			'username' => true
+		],
+		// Choose which emails are sent system wide
+		'send' => [
+			'password' => [
+				'share' => true,
+				'comment' => true,
+				'create' => true,
+				'update' => true,
+				'delete' => true,
+			],
+			'user' => [
+				// WARNING: disabling these will prevent user from signing up
+				'create' => true,
+				'recover' => true,
+			],
+			'group' => [
+				'user' => [
+					'add' => true,
+					'delete' => true,
+					'update' => true,
+				],
+				'manager' => [
+					// notify manager when group user is updated / deleted
+					'update' => true,
+					'delete' => true,
+				]
+			]
+		]
+	]
 ];

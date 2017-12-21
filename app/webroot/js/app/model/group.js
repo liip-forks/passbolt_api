@@ -41,7 +41,7 @@ var Group = passbolt.model.Group = mad.Model.extend('passbolt.model.Group', /** 
 	 */
 	findAll: function (params, success, error) {
 		return mad.net.Ajax.request({
-			url: APP_URL + '/groups.json',
+			url: APP_URL + 'groups.json',
 			type: 'GET',
 			params: params,
 			success: success,
@@ -131,7 +131,8 @@ var Group = passbolt.model.Group = mad.Model.extend('passbolt.model.Group', /** 
             type: 'DELETE',
             params: params,
             success: success,
-            error: error
+            error: error,
+			silentNotify: true
         });
     }
 

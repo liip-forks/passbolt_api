@@ -105,7 +105,7 @@ class UsersController extends AppController {
 
 		$url = parse_url($referer);
 		// If the referer was not the register url, we also redirect to /register page.
-		if (!isset($url['path']) || empty($url['path']) || $url['path'] !== '/register') {
+		if (!isset($url['path']) || empty($url['path']) || $url['path'] !== Router::url('/register')) {
 			$this->redirect("/register");
 			return;
 		}
@@ -126,9 +126,17 @@ class UsersController extends AppController {
 			throw new MethodNotAllowedException(__('Invalid request method, should be GET.'));
 		}
 
+		// Allowed query filters.
+		$allowedQueryFilters = ['keywords', 'has-groups'];
+
+		// Admin is allowed to use the filter is-active
+		if (User::isAdmin()) {
+			$allowedQueryFilters[] = 'is-active';
+		}
+
 		// Extract parameters from query string
 		$allowedQueryItems = [
-			'filter' => ['keywords', 'has-groups'],
+			'filter' => $allowedQueryFilters,
 			'order' => $this->User->getFindAllowedOrder('UsersController::index'),
 		];
 		$params = $this->QueryString->get($allowedQueryItems);
@@ -218,8 +226,8 @@ class UsersController extends AppController {
 		$options = $this->User->getFindOptions('User::view', User::get('Role.name'), $data);
 		$user = $this->User->find('first', $options);
 
-		$this->Message->success(__('The user has been saved successfully.'));
 		$this->set('data', $user);
+		$this->Message->success(__('The user has been saved successfully.'));
 	}
 
 /**
@@ -336,8 +344,8 @@ class UsersController extends AppController {
 		$options = $this->User->getFindOptions('User::view', User::get('Role.name'), $data);
 		$user = $this->User->find('first', $options);
 
-		$this->Message->success(__("The user has been updated successfully"));
 		$this->set('data', $user);
+		$this->Message->success(__("The user has been updated successfully"));
 	}
 
 /**
@@ -390,8 +398,8 @@ class UsersController extends AppController {
 		$users = $this->User->find('all', $options);
 		$user = reset($users);
 
-		$this->Message->success(__('The avatar has been updated successfully'));
 		$this->set('data', $user);
+		$this->Message->success(__('The avatar has been updated successfully'));
 	}
 
 /**
@@ -555,8 +563,8 @@ class UsersController extends AppController {
 		$options = $this->User->getFindOptions('User::view', User::get('Role.name'), $data);
 		$user = $this->User->find('first', $options);
 
-		$this->Message->success(__("The user has been updated successfully"));
 		$this->set('data', $user);
+		$this->Message->success(__("The user has been updated successfully"));
 	}
 
 /**
@@ -569,6 +577,7 @@ class UsersController extends AppController {
  * @throws BadRequestException if the user id is the same as the current user
  * @throws NotFoundException if the user does not exist
  * @throws InternalErrorException if the user could not be deleted
+ * @throws ValidationException if the user is the sole owner of some shared passwords
  * @return void
  */
 	public function delete($id = null) {
@@ -576,7 +585,7 @@ class UsersController extends AppController {
 		if (!$this->request->is('delete')) {
 			throw new BadRequestException(__('Invalid request method, should be DELETE.'));
 		}
-		if (User::get('Role.name') != Role::ADMIN) {
+		if (!User::isAdmin()) {
 			throw new ForbiddenException(__('You are not authorized to access that location.'));
 		}
 		if (!isset($id)) {
@@ -589,17 +598,67 @@ class UsersController extends AppController {
 			throw new BadRequestException(__('You are not allowed to delete yourself.'));
 		}
 
-		// If the user exists try to soft delete
+		// Retrieve the user to delete.
 		$o = $this->User->getFindOptions('User::view', User::get('Role.name'), ['User.id' => $id]);
 		$user = $this->User->find('first', $o);
 		if (!$user) {
 			throw new NotFoundException(__('The user does not exist.'));
 		}
+
+		// Data to return in case of error.
+		$errorData = array();
+
+		// Is dry run ?
+		$isDryRun = in_array('dry-run', $this->params['pass']);
+
+		// Retrieve the resources for which the user is the sole owner of.
+		$resourcesIds = $this->User->UserResourcePermission->findSoleOwnerSharedResourcesIds($id);
+		if (!empty($resourcesIds)) {
+			$Resource = Common::getModel('Resource');
+			// Retrieve the resources that require an ownership transfer.
+			$Resource->Behaviors->unload('Permissionable');
+			$resourcesFindData = ['has-resource_id' => $resourcesIds];
+			$resourcesFindOptions = $Resource->getFindOptions('Resource::index', User::get('Role.name'), $resourcesFindData);
+			$errorData['resources'] = $Resource->find('all', $resourcesFindOptions);
+			$Resource->Behaviors->load('Permissionable');
+		}
+
+		// Retrieve the groups for which the user is the sole manager.
+		$groupsIds = $this->User->GroupUser->findGroupsIdsHavingSoleManager($id);
+		if (!empty($groupsIds)) {
+			$Group = Common::getModel('Group');
+			// Retrieve the groups that require an ownership transfer.
+			$groupsFindData = ['has-group_id' => $groupsIds];
+			$o = $Group->getFindOptions('Group::index', User::get('Role.name'), $groupsFindData);
+			$errorData['groups'] = $Group->find('all', $o);
+		}
+
+		// If the user is sole owner of some resources, or the user is the sole manager of some groups.
+		if (!empty($errorData)) {
+			throw new ValidationException(
+				__('The user cannot be deleted. You need to transfer some ownerships to other users before you can proceed.'),
+				$errorData
+			);
+		}
+
+		// In case of dry-run, notify the requester that the user can be deleted.
+		if ($isDryRun) {
+			return $this->Message->success(__('The user can be deleted.'));
+		}
+
+		// Find the groups the users was member of, before deleting the associations GroupUser.
+		$groupsUsers = $this->User->GroupUser->find('all', ['conditions' => [
+			'user_id' => $id
+		]]);
+
 		try {
 			$this->User->softDelete($id);
 		} catch(Exception $e) {
 			throw new InternalErrorException(__('Could not delete the user.'));
 		}
+
+		// Notify by email the group managers of groups the user was member.
+		$this->EmailNotificator->userDeletedGroupManagerNotification(User::get('id'), $user, $groupsUsers);
 
 		// Everything went fine, commit the changes
 		$this->Message->success(__('The user was successfully deleted.'));

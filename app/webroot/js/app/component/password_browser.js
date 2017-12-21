@@ -38,7 +38,9 @@ var PasswordBrowser = passbolt.component.PasswordBrowser = mad.component.Grid.ex
 		// Prefix each row id with resource_
 		prefixItemId: 'resource_',
         // Override the silentLoading parameter.
-        silentLoading: false
+        silentLoading: false,
+		// Default state at loading
+		state: 'loading'
 	}
 
 }, /** @prototype */ {
@@ -162,11 +164,13 @@ var PasswordBrowser = passbolt.component.PasswordBrowser = mad.component.Grid.ex
 				if (!uri.is('absolute') && uri.is('url')) {
 					uri.protocol('http');
 				}
-
+				if (uri.protocol().trim().toLowerCase() === "javascript") {
+					uri.protocol('http');
+				}
 				mad.helper.Html.create(
 					cellElement,
 					'inside_replace',
-					'<a href="' + uri.toString() + '" target="_blank">' + cellValue + '</a>'
+					'<a href="' + uri.toString() + '" target="_blank" rel="noopener">' + cellValue + '</a>'
 				);
 			}
 		}), new mad.model.GridColumn({
@@ -484,28 +488,17 @@ var PasswordBrowser = passbolt.component.PasswordBrowser = mad.component.Grid.ex
 			def = passbolt.model.Resource.findAll(findOptions).then(function (resources, response, request) {
 				// If the browser has been destroyed before the request completed.
 				if (self.element == null) return;
-
 				// If the grid was marked as filtered, reset it.
 				self.filtered = false;
-
 				// Load the resources in the browser.
 				self.load(resources);
-				var states = ['ready'];
-				if (!resources.length) {
-					states.push('empty');
-					// Add some mark when on the default filter.
-					// Initially based on filter code
-					if (filter.id == 'default') {
-						states.push ('all_items');
-					}
-				}
-				self.setState(states);
 			});
 		}
-		this.filterSettings = filter;
 
 		// When the resources have been retrieved.
 		$.when(def).done(function() {
+			self.filterSettings = filter;
+
 			// Mark the ordered column if any.
 			var orders = filter.getOrders();
 			if (orders && orders[0]) {
@@ -531,6 +524,18 @@ var PasswordBrowser = passbolt.component.PasswordBrowser = mad.component.Grid.ex
 			} else if (self.isFiltered()){
 				self.resetFilter();
 			}
+
+			// Treat component states.
+			var states = ['ready'];
+			if (!self.options.items.length) {
+				states.push('empty');
+				// Add some mark when on the default filter.
+				// Initially based on filter code
+				if (self.filterSettings.id == 'default') {
+					states.push('all_items');
+				}
+			}
+			self.setState(states);
 		});
 
 		return def;
@@ -629,11 +634,6 @@ var PasswordBrowser = passbolt.component.PasswordBrowser = mad.component.Grid.ex
 		if (this.state.is('ready')) {
 			this.setState('selection');
 		}
-		// if the grid is already in selected state, switch to multipleSelected
-		// @todo Multiple selection has been disabled
-		//else if (this.state.is('selection')) {
-		//	this.setState('multipleSelection');
-		//}
 
 		// find the resource to select functions of its id
 		var i = mad.model.List.indexOf(this.options.items, rsId);

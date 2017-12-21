@@ -3,7 +3,7 @@
 /**
  * Passbolt client console
  *
- * @copyright (c) 2015-present Bolt Softwares Pvt Ltd
+ * @copyright (c) 2015 Bolt Softwares Pvt Ltd
  * @licence GNU Affero General Public License http://www.gnu.org/licenses/agpl-3.0.en.html
  */
 App::uses('AppShell', 'Console/Command');
@@ -16,6 +16,23 @@ class PassboltShell extends AppShell {
  * @var array
  */
 	public $tasks = array('Healthcheck', 'RegisterUser', 'AppConfig', 'CoreConfig');
+
+/**
+ * Display the passbolt ascii banner
+ *
+ * @return void
+ */
+	protected function _welcome() {
+		$this->hr();
+		$this->out('     ____                  __          ____  ');
+		$this->out('    / __ \____  _____ ____/ /_  ____  / / /_ ');
+		$this->out('   / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/ ');
+		$this->out('  / ____/ /_/ (__  |__  ) /_/ / /_/ / / /    ');
+		$this->out(' /_/    \__,_/____/____/_.___/\____/_/\__/   ');
+		$this->out('');
+		$this->out(' Open source password manager for teams');
+		$this->hr();
+	}
 
 /**
  * Get command options parser
@@ -44,14 +61,6 @@ class PassboltShell extends AppShell {
 			));
 
 		return $parser;
-	}
-
-/**
- * Main shell entry point
- *
- * @return bool
- */
-	public function main() {
 	}
 
 }
