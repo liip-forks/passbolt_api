@@ -10,9 +10,14 @@ Homepage: https://www.passbolt.com/
 Package: passbolt-api
 Architecture: all
 Depends: ${misc:Depends}, ${phpcomposer:Debian-require},
+ libjs-passbolt-embedded (= ${source:Version}),
  fonts-font-awesome,
- libjs-underscore (>= 1.8.3),
- libjs-jquery-mousewheel,
 Recommends: ${phpcomposer:Debian-recommend}
 Suggests: ${phpcomposer:Debian-suggest}
 Description: ${phpcomposer:description}
+
+Package: libjs-passbolt-embedded
+Section: javascript
+Architecture: all
+Description: All JS libraries embedded by Passbolt
+ Separate package for all the JS libraries embedded by passbolt
