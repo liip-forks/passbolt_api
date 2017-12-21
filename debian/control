@@ -2,6 +2,8 @@ Source: passbolt-api
 Maintainer: Didier Raboud <odyx@debian.org>
 Build-Depends: debhelper (>= 10),
  pkg-php-tools (>= 1.7~),
+Section: php
+Priority: optional
 Standards-Version: 4.1.2
 Homepage: https://www.passbolt.com/
 
