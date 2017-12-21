@@ -6,5 +6,9 @@
 override_dh_phpcomposer:
 	dh_phpcomposer --sourcedirectory=$(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api
 
+override_dh_link:
+	rm -Rf $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/webroot/js/lib/mousewheel/
+	dh_link
+
 override_dh_auto_clean:
 override_dh_auto_build:

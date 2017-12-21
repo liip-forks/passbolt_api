@@ -12,6 +12,7 @@ Architecture: all
 Depends: ${misc:Depends}, ${phpcomposer:Debian-require},
  fonts-font-awesome,
  libjs-underscore (>= 1.8.3),
+ libjs-jquery-mousewheel,
 Recommends: ${phpcomposer:Debian-recommend}
 Suggests: ${phpcomposer:Debian-suggest}
 Description: ${phpcomposer:description}

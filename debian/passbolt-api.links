@@ -1,4 +1,6 @@
 # fonts-font-awesome
 /usr/share/fonts-font-awesome/fonts/fontawesome-webfont.ttf /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.ttf
 # libjs-underscore
-/usr/share/javascript/underscore/underscore.js /usr/share/php/passbolt-api/webroot/js/build/underscore.js
+/usr/share/javascript/underscore/underscore.js              /usr/share/php/passbolt-api/webroot/js/build/underscore.js
+# libjs-jquery-mousewheel
+/usr/share/javascript/jquery-mousewheel                     /usr/share/php/passbolt-api/webroot/js/lib/mousewheel
