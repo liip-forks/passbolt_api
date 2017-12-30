@@ -1,5 +1,6 @@
 # Root redirectory
 index.php /usr/share/php/passbolt-api/
+.htaccess /usr/share/php/passbolt-api/
 
 # All from app/ besides Vendor/ and Config
 ## This goes to /etc/passbolt
