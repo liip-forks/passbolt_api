@@ -1,0 +1,13 @@
+Description: Point to Debian's cakephp directory
+
+--- a/index.php
++++ b/index.php
+@@ -35,7 +35,7 @@
+  * Full path to the directory containing "cake". Do not add trailing directory separator
+  */
+ if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+-	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
++	define('CAKE_CORE_INCLUDE_PATH', '/usr/share/php');
+ }
+ 
+ require APP_DIR . DS . WEBROOT_DIR . DS . 'index.php';

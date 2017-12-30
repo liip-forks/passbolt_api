@@ -1,4 +1,7 @@
-app/composer.json /usr/share/php/passbolt-api/app/
+# Root redirectory
+index.php /usr/share/php/passbolt-api/
+
+# All from app/ besides Vendor/
 app/Config /usr/share/php/passbolt-api/app/
 app/Console /usr/share/php/passbolt-api/app/
 app/Controller /usr/share/php/passbolt-api/app/

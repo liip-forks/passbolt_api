@@ -12,6 +12,7 @@ Architecture: all
 Depends: ${misc:Depends},
  libjs-passbolt-embedded (= ${source:Version}),
  php-passbolt-embedded (= ${source:Version}),
+ cakephp,
  fonts-font-awesome,
 Description: Passbolt API - Password Manager for teams
  It allows you to securely share and store credentials. For instance, the wifi
