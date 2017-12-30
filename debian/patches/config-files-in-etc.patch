@@ -1,0 +1,11 @@
+--- a/app/Config/core.php.default
++++ b/app/Config/core.php.default
+@@ -24,7 +24,7 @@
+ /**
+  * Add the composer autoloader script.
+  */
+-require_once dirname(__DIR__) . '/Vendor/autoload.php';
++require_once '/usr/share/php/passbolt-api/app/Vendor/autoload.php';
+ 
+ /**
+  * CakePHP Debug Level:
