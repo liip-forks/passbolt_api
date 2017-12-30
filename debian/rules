@@ -1,10 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --with phpcomposer
-
-override_dh_phpcomposer:
-	dh_phpcomposer --sourcedirectory=$(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api
+	dh $@
 
 override_dh_install:
 	dh_install

@@ -1,1 +1,16 @@
-app/* /usr/share/php/passbolt-api/
+app/composer.json /usr/share/php/passbolt-api/app/
+app/Config /usr/share/php/passbolt-api/app/
+app/Console /usr/share/php/passbolt-api/app/
+app/Controller /usr/share/php/passbolt-api/app/
+app/.htaccess /usr/share/php/passbolt-api/app/
+app/index.php /usr/share/php/passbolt-api/app/
+app/Lib /usr/share/php/passbolt-api/app/
+app/Locale /usr/share/php/passbolt-api/app/
+app/Model /usr/share/php/passbolt-api/app/
+app/Plugin /usr/share/php/passbolt-api/app/
+app/Test /usr/share/php/passbolt-api/app/
+app/tmp /usr/share/php/passbolt-api/app/
+## This goes to php-passbolt-embedded
+# app/Vendor /usr/share/php/passbolt-api/app/
+app/View /usr/share/php/passbolt-api/app/
+app/webroot /usr/share/php/passbolt-api/app/

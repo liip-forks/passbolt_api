@@ -1,0 +1,11 @@
+app/Vendor/burzum/ /usr/share/php/
+app/Vendor/composer/ /usr/share/php/
+app/Vendor/donatj/ /usr/share/php/
+app/Vendor/ezyang/ /usr/share/php/
+app/Vendor/guzzlehttp/ /usr/share/php/
+app/Vendor/imagine/ /usr/share/php/
+app/Vendor/knplabs/ /usr/share/php/
+app/Vendor/phpseclib/ /usr/share/php/
+app/Vendor/psr/ /usr/share/php/
+app/Vendor/singpolyma/ /usr/share/php/
+app/Vendor/thadafinser/ /usr/share/php/
