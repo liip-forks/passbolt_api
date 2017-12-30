@@ -25,6 +25,7 @@ app/Config/acl.ini.php /etc/passbolt/
 app/Config/acl.php /etc/passbolt/
 app/Config/bootstrap.php /etc/passbolt/
 app/Config/default.php /etc/passbolt/
+app/Config/file_storage.php /etc/passbolt/
 app/Config/routes.php /etc/passbolt/
 app/Config/version.php /etc/passbolt/
 
