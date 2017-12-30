@@ -15,12 +15,5 @@ override_dh_install:
 		install -m 644 $$cfg $(CURDIR)/debian/passbolt-api/etc/passbolt/$$(basename $$cfg .default); \
 	done
 
-override_dh_installdirs:
-	dh_installdirs
-	# Install all directories from tmp/ to /var/lib/passbolt/
-	for d in app/tmp/*; do \
-		install -d -m 644 $$d $(CURDIR)/debian/passbolt-api/var/lib/passbolt/$$(basename $$d); \
-	done
-
 override_dh_auto_clean:
 override_dh_auto_build:
