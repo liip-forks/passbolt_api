@@ -8,7 +8,7 @@ override_dh_install:
 	# Cleanup superfluous files
 	find $(CURDIR)/debian/passbolt-api/ -type f \( -name '.git*' -o -iname 'license*' \) -delete
 	# All JS goes in libjs-passbolt-embedded
-	rm -Rf $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/webroot/js/lib
+	rm -Rf $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/app/webroot/js/lib
 
 override_dh_auto_clean:
 override_dh_auto_build:
