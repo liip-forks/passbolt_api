@@ -10,9 +10,14 @@ Homepage: https://www.passbolt.com/
 Package: passbolt-api
 Architecture: all
 Depends: ${misc:Depends},
+# From src:passbolt-api
  libjs-passbolt-embedded (= ${source:Version}),
  php-passbolt-embedded (= ${source:Version}),
+# We can use Debian's
  fonts-font-awesome,
+# Passbolt requirements
+ libapache2-mod-php,
+ php-gd,
 Description: Passbolt API - Password Manager for teams
  It allows you to securely share and store credentials. For instance, the wifi
  password of your office, the administrator password of a router or your
