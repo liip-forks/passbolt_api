@@ -10,5 +10,10 @@ override_dh_install:
 	# All JS goes in libjs-passbolt-embedded
 	rm -Rf $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/app/webroot/js/lib
 
+	# Install all .default files to /etc/passbolt anyway
+	for cfg in app/Config/*.default; do \
+		install -m 644 $$cfg $(CURDIR)/debian/passbolt-api/etc/passbolt/$$(basename $$cfg .default); \
+	done
+
 override_dh_auto_clean:
 override_dh_auto_build:

@@ -20,6 +20,7 @@ app/View /usr/share/php/passbolt-api/app/
 app/webroot /usr/share/php/passbolt-api/app/
 
 # Configuration files
+app/Config/acl.ini.php /etc/passbolt/
 app/Config/acl.php /etc/passbolt/
 app/Config/bootstrap.php /etc/passbolt/
 app/Config/default.php /etc/passbolt/
