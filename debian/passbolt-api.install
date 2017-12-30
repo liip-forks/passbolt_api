@@ -13,7 +13,8 @@ app/Locale /usr/share/php/passbolt-api/app/
 app/Model /usr/share/php/passbolt-api/app/
 app/Plugin /usr/share/php/passbolt-api/app/
 app/Test /usr/share/php/passbolt-api/app/
-app/tmp /usr/share/php/passbolt-api/app/
+## This goes to /var/lib/passbolt
+# app/tmp /usr/share/php/passbolt-api/app/
 ## This goes to php-passbolt-embedded
 # app/Vendor /usr/share/php/passbolt-api/app/
 app/View /usr/share/php/passbolt-api/app/
