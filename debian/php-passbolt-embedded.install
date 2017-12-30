@@ -9,3 +9,4 @@ app/Vendor/phpseclib/ /usr/share/php/
 app/Vendor/psr/ /usr/share/php/
 app/Vendor/singpolyma/ /usr/share/php/
 app/Vendor/thadafinser/ /usr/share/php/
+lib/Cake/ /usr/share/php/
