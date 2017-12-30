@@ -15,5 +15,9 @@ override_dh_install:
 		install -m 644 $$cfg $(CURDIR)/debian/passbolt-api/etc/passbolt/$$(basename $$cfg .default); \
 	done
 
+override_dh_fixperms:
+	dh_fixperms
+	chown -R www-data $(CURDIR)/debian/passbolt-api/var/lib/passbolt
+
 override_dh_auto_clean:
 override_dh_auto_build:
