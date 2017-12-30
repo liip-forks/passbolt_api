@@ -9,3 +9,14 @@
  
  /**
   * CakePHP Debug Level:
+--- a/app/Config/bootstrap.php
++++ b/app/Config/bootstrap.php
+@@ -123,7 +123,7 @@
+ 	CakePlugin::load('DataTests');
+ }
+ 
+-require_once dirname(dirname(__DIR__)) . DS . 'Vendor' . DS . 'autoload.php';
++require_once '/usr/share/php/passbolt-api/app/Vendor/autoload.php';
+ 
+ /**
+  * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
