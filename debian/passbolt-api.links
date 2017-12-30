@@ -3,3 +3,6 @@
 
 # libjs-passbolt-embedded
 /usr/share/javascript/passbolt-lib /usr/share/php/passbolt-api/app/webroot/js/lib
+
+# Configuration directory
+/etc/passbolt /usr/share/php/passbolt-api/app/Config

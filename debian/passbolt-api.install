@@ -1,8 +1,9 @@
 # Root redirectory
 index.php /usr/share/php/passbolt-api/
 
-# All from app/ besides Vendor/
-app/Config /usr/share/php/passbolt-api/app/
+# All from app/ besides Vendor/ and Config
+## This goes to /etc/passbolt
+# app/Config /usr/share/php/passbolt-api/app/
 app/Console /usr/share/php/passbolt-api/app/
 app/Controller /usr/share/php/passbolt-api/app/
 app/.htaccess /usr/share/php/passbolt-api/app/
@@ -17,3 +18,10 @@ app/tmp /usr/share/php/passbolt-api/app/
 # app/Vendor /usr/share/php/passbolt-api/app/
 app/View /usr/share/php/passbolt-api/app/
 app/webroot /usr/share/php/passbolt-api/app/
+
+# Configuration files
+app/Config/acl.php /etc/passbolt/
+app/Config/bootstrap.php /etc/passbolt/
+app/Config/default.php /etc/passbolt/
+app/Config/routes.php /etc/passbolt/
+app/Config/version.php /etc/passbolt/
