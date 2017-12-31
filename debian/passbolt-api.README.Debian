@@ -45,7 +45,7 @@ sudo chown root ${GENKEY_BATCHFILE} ${GENKEY_GNUPGHOME}
 sudo gpg --home ${GENKEY_GNUPGHOME} --gen-key --batch ${GENKEY_BATCHFILE}
 # Export the key towards www-data's GnuPG Home
 sudo mkdir /var/lib/passbolt/gnupghome
-sudo chmod 0600 /var/lib/passbolt/gnupghome
+sudo chmod 0700 /var/lib/passbolt/gnupghome
 sudo chown www-data /var/lib/passbolt/gnupghome
 sudo gpg --home ${GENKEY_GNUPGHOME} --export-secret-keys | sudo -u www-data gpg --home /var/lib/passbolt/gnupghome --import
 # Export the private key towards passbolt configuration
