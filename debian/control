@@ -15,6 +15,7 @@ Depends: ${misc:Depends},
  php-passbolt-embedded (= ${source:Version}),
 # We can use Debian's
  fonts-font-awesome,
+Recommends:
 # Passbolt requirements
  libapache2-mod-php,
  php-gd,
