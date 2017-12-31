@@ -15,6 +15,11 @@ override_dh_install:
 		install -m 644 $$cfg $(CURDIR)/debian/passbolt-api/etc/passbolt/$$(basename $$cfg .default); \
 	done
 
+override_dh_link:
+	# This is replaced by a symlink
+	rm -Rf $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/app/webroot/img/public
+	dh_link
+
 override_dh_fixperms:
 	dh_fixperms
 	chown -R www-data $(CURDIR)/debian/passbolt-api/var/lib/passbolt

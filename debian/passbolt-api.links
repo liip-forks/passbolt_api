@@ -9,3 +9,6 @@
 
 # Application temporary files directory
 /var/lib/passbolt/tmp /usr/share/php/passbolt-api/app/tmp
+
+# Public images
+/var/lib/passbolt/img-public /usr/share/php/passbolt-api/app/webroot/img/public
