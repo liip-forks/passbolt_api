@@ -27,7 +27,7 @@
  			// otherwise you can set the location here
  			// typically on Centos it would be in '/usr/share/httpd/.gnupg'
 -			'home' => '/home/www-data/.gnupg',
-+			'home' => '/var/lib/passbolt/.gnupg',
++			'home' => '/var/lib/passbolt/gnupghome',
  		],
  		// Main server key
  		'serverKey' => [
