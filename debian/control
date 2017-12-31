@@ -51,3 +51,15 @@ Description: Passbolt API - Password Manager for teams - PHP libs
  using passbolt.
  .
  This is all PHP libraries embedded by Passbolt.
+
+Package: php-passbolt-embedded-healthcheck
+Section: non-free/php
+Architecture: all
+Description: Passbolt API - Password Manager for teams - PHP libs for healtcheck
+ It allows you to securely share and store credentials. For instance, the wifi
+ password of your office, the administrator password of a router or your
+ organisation's social media account passwords, all of them can be secured
+ using passbolt.
+ .
+ This is all PHP libraries embedded by Passbolt that are additionally needed for
+ the healthcheck.
