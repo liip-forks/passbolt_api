@@ -1,0 +1,92 @@
+How to finish a passbolt-api Debian setup
+=========================================
+
+This package and its dependencies comes with all the files needed to get
+passbolt up and running, but most configuration is not automated. There are
+some things that need to be done to get your passbolt-api instance up and
+running.
+
+0) Summary
+----------
+
+    A) Create the server GnuPG key
+    B) Generate CakePHP salt and cipherSeed
+    C) Configure the database access
+    D) Seed the DB
+
+
+A) Create the server GnuPG key
+------------------------------
+
+Generating keys with the www-data is harder than it needs to be. We'll be
+creating keys as root and transferring to www-data.
+
+Adapt as needed for your server's identity, and run all commands between the
+three ticks markers:
+
+```
+PB_SERVER_NAME='Passbolt API server'
+PB_SERVER_EMAIL=passbolt-owner@example.com
+
+GENKEY_GNUPGHOME=`sudo mktemp -d`
+GENKEY_BATCHFILE=`mktemp`
+echo "
+%echo Generating the Passbolt API OpenPGP Server Key
+%no-protection
+Key-Type: RSA
+Key-Length: 2048
+Name-Real: ${PB_SERVER_NAME}
+Name-Email: ${PB_SERVER_EMAIL}
+Expire-Date: 0
+" >${GENKEY_BATCHFILE}
+sudo chown root ${GENKEY_BATCHFILE} ${GENKEY_GNUPGHOME}
+# Generate the key
+sudo gpg --home ${GENKEY_GNUPGHOME} --gen-key --batch ${GENKEY_BATCHFILE}
+# Export the key towards www-data's GnuPG Home
+sudo gpg --home ${GENKEY_GNUPGHOME} --export-secret-keys | sudo -u www-data gpg --home /var/lib/passbolt/gnupghome --import
+# Export the private key towards passbolt configuration
+sudo gpg --home ${GENKEY_GNUPGHOME} --export-secret-keys --armor | sudo tee /etc/passbolt/gpg/serverkey_private.asc 2>/dev/null
+sudo chmod 600 /etc/passbolt/gpg/serverkey_private.asc
+# Export the public key towards passbolt configuration
+sudo gpg --home ${GENKEY_GNUPGHOME} --export --armor | sudo tee /etc/passbolt/gpg/serverkey.asc 2>/dev/null
+sudo chown www-data /etc/passbolt/gpg/serverkey*.asc
+# Get the fingerprint of that key
+sudo gpg --home ${GENKEY_GNUPGHOME} --list-public-keys | grep -A1 pub | tail -n1 | xargs
+# Stop root's GnuPG agent
+sudo gpgconf --kill gpg-agent
+# Remove the GnuPG Home
+sudo rm -Rf ${GENKEY_GNUPGHOME}
+```
+
+Put the fingerprint and the path to the public and secret keys in 
+/etc/passbolt/app.php, in
+    'GPG' =>
+        'serverKey' =>
+            'fingerprint'
+            'public'
+            'private'
+
+
+B) Generate CakePHP salt and cipherSeed
+---------------------------------------
+
+These need to go in /etc/passbolt/core.php:
+
+For Security.salt:
+    tr -dc 'A-Za-z0-9' </dev/urandom |  head -c 40
+
+For Security.cipherseed:
+    tr -dc '0-9' </dev/urandom |  head -c 30
+
+
+C) Configure the database access
+--------------------------------
+
+Edit /etc/passbolt/database.php as needed.
+
+
+D) Seed the DB
+--------------
+
+sudo -u www-data /usr/share/php/passbolt-api/app/Console/cake install --no-admin
+
