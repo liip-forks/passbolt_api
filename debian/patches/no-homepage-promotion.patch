@@ -1,0 +1,18 @@
+--- a/app/View/Auth/login.ctp
++++ b/app/View/Auth/login.ctp
+@@ -25,15 +25,4 @@
+ 	<div class="row js_main-login-section">
+ 		<?php echo $this->element($pluginCheckTemplate); ?>
+ 	</div>
+-	<div class="row">
+-		<div class="col3 push1 github-block">
+-			<?php echo $this->element('public/box-service-cloud'); ?>
+-		</div>
+-		<div class="col3 github-block">
+-            <?php echo $this->element('public/box-service-pro'); ?>
+-        </div>
+-		<div class="col4 github-block push1 last">
+-			<?php echo $this->element('public/box-open-source'); ?>
+-		</div>
+-	</div>
+ </div>
