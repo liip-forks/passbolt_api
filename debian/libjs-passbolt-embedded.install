@@ -1,1 +1,1 @@
-app/webroot/js/lib/ /usr/share/javascript/passbolt-lib/
+app/webroot/js/lib/* /usr/share/javascript/passbolt-lib/

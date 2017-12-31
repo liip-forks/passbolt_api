@@ -18,6 +18,8 @@ Depends: ${misc:Depends},
 # Passbolt requirements
  libapache2-mod-php,
  php-gd,
+ php-gnupg,
+ php-mysql,
 Description: Passbolt API - Password Manager for teams
  It allows you to securely share and store credentials. For instance, the wifi
  password of your office, the administrator password of a router or your

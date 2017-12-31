@@ -20,3 +20,14 @@
  
  /**
   * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
+--- a/app/Config/app.php.default
++++ b/app/Config/app.php.default
+@@ -47,7 +47,7 @@
+ 			'setenv' => true,
+ 			// otherwise you can set the location here
+ 			// typically on Centos it would be in '/usr/share/httpd/.gnupg'
+-			'home' => '/home/www-data/.gnupg',
++			'home' => '/var/lib/passbolt/.gnupg',
+ 		],
+ 		// Main server key
+ 		'serverKey' => [
