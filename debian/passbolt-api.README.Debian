@@ -13,6 +13,7 @@ running.
     B) Generate CakePHP salt and cipherSeed
     C) Configure the database access
     D) Seed the DB
+    E) Configure the Apache server
 
 
 A) Create the server GnuPG key
@@ -90,3 +91,26 @@ D) Seed the DB
 
 sudo -u www-data /usr/share/php/passbolt-api/app/Console/cake install --no-admin
 
+
+E) Configure the Apache server
+---------------------------------------------------
+
+Make sure Apache's redirect module is enabled:
+```
+    sudo a2enmod redirect; sudo systemctl apache2 restart
+```
+
+Example configuration:
+
+```
+<VirtualHost *:443>
+    ServerName passbolt.example.com
+    DocumentRoot /usr/share/php/passbolt-api/
+
+    <Directory /usr/share/php/passbolt-api/>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
