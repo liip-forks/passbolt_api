@@ -7,5 +7,5 @@
 # Configuration directory
 /etc/passbolt /usr/share/php/passbolt-api/app/Config
 
-# Application data directory
-/var/lib/passbolt /usr/share/php/passbolt-api/app/tmp
+# Application temporary files directory
+/var/lib/passbolt/tmp /usr/share/php/passbolt-api/app/tmp

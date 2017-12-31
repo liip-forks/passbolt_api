@@ -29,6 +29,9 @@ app/Config/default.php /etc/passbolt/
 app/Config/file_storage.php /etc/passbolt/
 app/Config/routes.php /etc/passbolt/
 app/Config/version.php /etc/passbolt/
+# DB Schemas
+app/Config/Schema/* /etc/passbolt/Schema
 
-# Use dh-exec to rename
-app/tmp/* /var/lib/passbolt/
+# All temporary files
+app/tmp/* /var/lib/passbolt/tmp/
+
