@@ -44,12 +44,16 @@ sudo chown root ${GENKEY_BATCHFILE} ${GENKEY_GNUPGHOME}
 # Generate the key
 sudo gpg --home ${GENKEY_GNUPGHOME} --gen-key --batch ${GENKEY_BATCHFILE}
 # Export the key towards www-data's GnuPG Home
+sudo mkdir /var/lib/passbolt/gnupghome
+sudo chmod 0600 /var/lib/passbolt/gnupghome
+sudo chown www-data /var/lib/passbolt/gnupghome
 sudo gpg --home ${GENKEY_GNUPGHOME} --export-secret-keys | sudo -u www-data gpg --home /var/lib/passbolt/gnupghome --import
 # Export the private key towards passbolt configuration
-sudo gpg --home ${GENKEY_GNUPGHOME} --export-secret-keys --armor | sudo tee /etc/passbolt/gpg/serverkey_private.asc 2>/dev/null
+sudo mkdir -p /etc/passbolt/gpg/
+sudo gpg --home ${GENKEY_GNUPGHOME} --export-secret-keys --armor | sudo tee /etc/passbolt/gpg/serverkey_private.asc >/dev/null
 sudo chmod 600 /etc/passbolt/gpg/serverkey_private.asc
 # Export the public key towards passbolt configuration
-sudo gpg --home ${GENKEY_GNUPGHOME} --export --armor | sudo tee /etc/passbolt/gpg/serverkey.asc 2>/dev/null
+sudo gpg --home ${GENKEY_GNUPGHOME} --export --armor | sudo tee /etc/passbolt/gpg/serverkey.asc >/dev/null
 sudo chown www-data /etc/passbolt/gpg/serverkey*.asc
 # Get the fingerprint of that key
 sudo gpg --home ${GENKEY_GNUPGHOME} --list-public-keys | grep -A1 pub | tail -n1 | xargs
@@ -59,7 +63,7 @@ sudo gpgconf --kill gpg-agent
 sudo rm -Rf ${GENKEY_GNUPGHOME}
 ```
 
-Put the fingerprint and the path to the public and secret keys in 
+Put the fingerprint and the path to the public and secret keys in
 /etc/passbolt/app.php, in
     'GPG' =>
         'serverKey' =>
