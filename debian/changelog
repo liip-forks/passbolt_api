@@ -1,5 +1,6 @@
-passbolt-api (1.6.5-1~OdyX0) UNRELEASED; urgency=medium
+passbolt-api (1.6.5-1~liipfork2017123100) unstable; urgency=medium
 
-  * Initial release. (Closes: #XXXXXX)
+  * Very initial release. Mostly nothing automated, but documentation in
+    place, and plugin working!
 
- -- Didier Raboud <odyx@debian.org>  Wed, 22 Feb 2017 10:03:42 +0100
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Sun, 31 Dec 2017 15:17:39 +0100
