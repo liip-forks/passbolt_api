@@ -1,6 +1,6 @@
-passbolt-api (1.6.5-1~liipfork2017123101) unstable; urgency=medium
+passbolt-api (1.6.5-1~2018010300) unstable; urgency=medium
 
   * Very initial release. Mostly nothing automated, but documentation in
     place, and plugin working!
 
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Sun, 31 Dec 2017 15:17:39 +0100
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Wed, 03 Jan 2018 16:37:57 +0100
