@@ -1,3 +1,9 @@
+passbolt-api (1.6.5-6-g887b553c6-1~2018011000) unstable; urgency=medium
+
+  * Upstream snapshot 1.6.5-6-g887b553c6
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Wed, 10 Jan 2018 09:56:42 +0100
+
 passbolt-api (1.6.5-1~2018010300) unstable; urgency=medium
 
   * Very initial release. Mostly nothing automated, but documentation in
