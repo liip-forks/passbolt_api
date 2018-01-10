@@ -18,8 +18,19 @@ app/Test /usr/share/php/passbolt-api/app/
 # app/tmp /usr/share/php/passbolt-api/app/
 ## This goes to php-passbolt-embedded
 # app/Vendor /usr/share/php/passbolt-api/app/
-app/View /usr/share/php/passbolt-api/app/
-app/webroot /usr/share/php/passbolt-api/app/
+app/View                       /usr/share/php/passbolt-api/app/
+app/webroot/css                /usr/share/php/passbolt-api/app/webroot/
+app/webroot/files              /usr/share/php/passbolt-api/app/webroot/
+app/webroot/fonts              /usr/share/php/passbolt-api/app/webroot/
+app/webroot/img                /usr/share/php/passbolt-api/app/webroot/
+app/webroot/js                 /usr/share/php/passbolt-api/app/webroot/
+app/webroot/.htaccess          /usr/share/php/passbolt-api/app/webroot/
+app/webroot/apple-touch-icon*  /usr/share/php/passbolt-api/app/webroot/
+app/webroot/crossdomain.xml    /usr/share/php/passbolt-api/app/webroot/
+app/webroot/favicon.ico        /usr/share/php/passbolt-api/app/webroot/
+app/webroot/index.php          /usr/share/php/passbolt-api/app/webroot/
+app/webroot/robots.txt         /usr/share/php/passbolt-api/app/webroot/
+app/webroot/test.php           /usr/share/php/passbolt-api/app/webroot/
 
 # Configuration files
 app/Config/acl.ini.php /etc/passbolt/
