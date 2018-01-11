@@ -1,8 +1,9 @@
 passbolt-api (1.6.5-6-g887b553c6-1~2018011001) unstable; urgency=medium
 
-  * Only install the styles not coming from passbolt-style
+  * Depend on passbolt-style from passbolt-styleguide; only install the styles
+    not coming from passbolt-style
 
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Wed, 10 Jan 2018 11:29:41 +0100
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Thu, 11 Jan 2018 10:09:30 +0100
 
 passbolt-api (1.6.5-6-g887b553c6-1~2018011000) unstable; urgency=medium
 
