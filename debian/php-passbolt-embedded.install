@@ -1,4 +1,0 @@
-# All of app/Vendor
-app/Vendor /usr/share/php/passbolt-api/app/
-# All of lib
-lib/ /usr/share/php/passbolt-api/
