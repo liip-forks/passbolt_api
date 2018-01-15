@@ -3,12 +3,3 @@
 
 # libjs-passbolt-embedded
 /usr/share/javascript/passbolt-lib /usr/share/php/passbolt-api/webroot/js/lib
-
-# Configuration directory
-/etc/passbolt /usr/share/php/passbolt-api/config
-
-# Application temporary files directory
-/var/lib/passbolt/tmp /usr/share/php/passbolt-api/tmp
-
-# Public images
-/var/lib/passbolt/img-public /usr/share/php/passbolt-api/webroot/img/public
