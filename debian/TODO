@@ -1,14 +1,5 @@
 TODO before submitting to Debian NEW
 ==
 
-Embedded copies
---
-
-* webroot/js/lib/jscrollpane => https://github.com/vitch/jScrollPane as libjs-scrollpane
-* webroot/js/can => https://github.com/canjs/canjs as libjs-can
-* …
-
-Vendor directory
---
-
-Repack to fully remove.
+* Make sure the logs are log-rotated
+* Package all dependencies coming now from composer
