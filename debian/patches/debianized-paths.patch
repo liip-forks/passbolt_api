@@ -33,7 +33,7 @@
   * File path to the webroot directory.
   */
 -define('IMAGES', WWW_ROOT . 'img' . DS);
-+define('IMAGES',  VAR_DIR . 'img-public' . DS);
++define('IMAGES',  VAR_DIR . DS . 'img-public' . DS);
  
  /**
   * Path to the tests directory.
