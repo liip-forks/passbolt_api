@@ -4,6 +4,7 @@ Build-Depends: debhelper (>= 10),
  pkg-php-tools (>= 1.7~),
  composer,
  php-intl,
+ php-mbstring,
 Section: php
 Priority: optional
 Standards-Version: 4.1.3
