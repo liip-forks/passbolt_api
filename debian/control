@@ -22,7 +22,7 @@ Depends: ${misc:Depends},
 # Passbolt dependencies
  php (>= 7),
  php-gd (>= 7),
- php-gnupg (>= 7),
+ php-gnupg,
 Recommends:
 # Passbolt requirements
  libapache2-mod-php (>= 7),

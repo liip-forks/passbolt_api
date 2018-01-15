@@ -63,3 +63,13 @@
  
  // Run the request/response through the application
  // and emit the response.
+--- a/bin/cake.php
++++ b/bin/cake.php
+@@ -29,6 +29,6 @@
+ }
+ 
+ require dirname(__DIR__) . '/vendor/autoload.php';
+-include dirname(__DIR__) . '/config/bootstrap.php';
++include '/etc/passbolt/bootstrap.php';
+ 
+ exit(Cake\Console\ShellDispatcher::run($argv));
