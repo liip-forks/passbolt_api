@@ -1,3 +1,9 @@
+passbolt-api (2.0.0~rc1-1~2018011501) unstable; urgency=medium
+
+  * Initial 2.0.0~rc1 packaging update
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 15 Jan 2018 14:38:57 +0100
+
 passbolt-api (1.6.5-6-g887b553c6-1~2018011001) unstable; urgency=medium
 
   * Depend on passbolt-style from passbolt-styleguide; only install the styles
