@@ -20,7 +20,7 @@ If you are certain this is a new API bug please use the following format:
 -- PHP: VERSION
 -- Web server: NAME AND VERSION
 -- Database server: NAME AND VERSION
--- etc.: OTHER RELEVAT PLATFORM INFO
+-- etc.: OTHER RELEVANT PLATFORM INFO
 
 ### What you did
 EXPLAIN WHAT YOU DID, PREFERABLY WITH CODE EXAMPLES, HERE.

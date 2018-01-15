@@ -4,27 +4,37 @@
 	    / /_/ / __ `/ ___/ ___/ __ \/ __ \/ / __/
 	   / ____/ /_/ (__  |__  ) /_/ / /_/ / / /_
 	  /_/    \__,_/____/____/_,___/\____/_/\__/
-	
+
 	The open-source password management solution for teams
-	(c) 2015-2016 Bolt Softwares Pvt. Ltd.
-	(c) 2017 Passbolt SARL
+	Copyright (c) 2017 Passbolt SARL
 	https://www.passbolt.com
 
 [![Build Status](https://travis-ci.org/passbolt/passbolt_api.svg?branch=master)](https://travis-ci.org/passbolt/passbolt_api)
 [![Build Status](https://saucelabs.com/buildstatus/passbolt)](https://saucelabs.com/beta/builds/c32d4f7b34c94ebdab39baed17b4d975)
 [![Coverage Status](https://coveralls.io/repos/github/passbolt/passbolt_api/badge.svg?branch=master)](https://coveralls.io/github/passbolt/passbolt_api?branch=master)
-[![Docker Pulls](https://img.shields.io/docker/pulls/passbolt/passbolt.svg)](https://hub.docker.com/r/passbolt/passbolt/tags/)
 
 [![Build Status](https://saucelabs.com/browser-matrix/passbolt.svg)](https://saucelabs.com/beta/builds/2b2d0f3a120a4818a137fda932a86c75)
 
 ## License
 
-Passbolt is distributed under the [Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.html)
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but without any warranty; without even the implied warranty of
+merchantability or fitness for a particular purpose.  See the
+GNU Affero General Public License for more details.
+
+[Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ## About Passbolt
 
-Passbolt is an open source password manager for teams. It allows you to securely share and store credentials.
-For instance, the wifi password of your office, the administrator password of a router or your organisation's social media account passwords, all of them can be secured using passbolt.
+Passbolt is an open source password manager for teams. It allows you to 
+securely share and store credentials. For instance, the wifi password of your 
+office, the administrator password of a router or your organisation's social 
+media account passwords, all of them can be secured using passbolt.
 
 Passbolt is different from the other password managers because:
 - It is primarily designed for teams and not individuals
@@ -36,7 +46,7 @@ Passbolt is different from the other password managers because:
 
 Find out more: [https://www.passbolt.com](https://www.passbolt.com "Passbolt Homepage")
 
-### What does it look like?
+### How does it look like?
 
 [![Login](https://raw.githubusercontent.com/passbolt/passbolt_styleguide/master/src/img/screenshots/teaser-screenshot-login-275.png)](https://raw.githubusercontent.com/passbolt/passbolt_styleguide/master/src/img/screenshots/teaser-screenshot-login.png)
 [![Browse passwords](https://raw.githubusercontent.com/passbolt/passbolt_styleguide/master/src/img/screenshots/teaser-screenshot4-275.png)](https://raw.githubusercontent.com/passbolt/passbolt_styleguide/master/src/img/screenshots/teaser-screenshot4.png)
@@ -59,16 +69,11 @@ https://www.passbolt.com/help/tech/install
 
 Please check out CONTRIBUTING.md for more information on how to get involved!
 
-**Please only use github to report bug or make a pull request.**
-
-If you want to make a feature request or if you are having an issue
-when installing your own passbolt instance you should seek help first from the 
-community here: https://community.passbolt.com/
-
 ## Reporting a security issue
 
 If you've found a security-related issue in passbolt, please don't open an issue on GitHub.
-Instead contact us at security@passbolt.com. In the spirit of responsible disclosure we ask that the reporter keep the issue confidential until we announce it.
+Instead contact us at security@passbolt.com. In the spirit of responsible disclosure we ask 
+that the reporter keep the issue confidential until we announce it.
 
 The passbolt team will take the following actions:
 - Try first to reproduce the issue and confirm the vulnerability.
