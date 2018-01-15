@@ -47,3 +47,14 @@
  
  /**
   * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
+--- a/webroot/index.php
++++ b/webroot/index.php
+@@ -30,7 +30,7 @@
+ use Cake\Http\Server;
+ 
+ // Bind your application to the server.
+-$server = new Server(new Application(dirname(__DIR__) . '/config'));
++$server = new Server(new Application('/etc/passbolt'));
+ 
+ // Run the request/response through the application
+ // and emit the response.
