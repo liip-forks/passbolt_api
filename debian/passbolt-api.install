@@ -2,49 +2,16 @@
 index.php /usr/share/php/passbolt-api/
 .htaccess /usr/share/php/passbolt-api/
 
-# All from app/ besides Vendor/ and Config
-## This goes to /etc/passbolt
-# app/Config /usr/share/php/passbolt-api/app/
-app/Console /usr/share/php/passbolt-api/app/
-app/Controller /usr/share/php/passbolt-api/app/
-app/.htaccess /usr/share/php/passbolt-api/app/
-app/index.php /usr/share/php/passbolt-api/app/
-app/Lib /usr/share/php/passbolt-api/app/
-app/Locale /usr/share/php/passbolt-api/app/
-app/Model /usr/share/php/passbolt-api/app/
-app/Plugin /usr/share/php/passbolt-api/app/
-app/Test /usr/share/php/passbolt-api/app/
-## This goes to /var/lib/passbolt
-# app/tmp /usr/share/php/passbolt-api/app/
-## This goes to php-passbolt-embedded
-# app/Vendor /usr/share/php/passbolt-api/app/
-app/View                         /usr/share/php/passbolt-api/app/
-app/webroot/css/cake.generic.css /usr/share/php/passbolt-api/app/webroot/css/
-app/webroot/css/check.css        /usr/share/php/passbolt-api/app/webroot/css/
-app/webroot/css/debug.css        /usr/share/php/passbolt-api/app/webroot/css/
-app/webroot/files                /usr/share/php/passbolt-api/app/webroot/
-app/webroot/fonts                /usr/share/php/passbolt-api/app/webroot/
-app/webroot/img                  /usr/share/php/passbolt-api/app/webroot/
-app/webroot/js                   /usr/share/php/passbolt-api/app/webroot/
-app/webroot/.htaccess            /usr/share/php/passbolt-api/app/webroot/
-app/webroot/apple-touch-icon*    /usr/share/php/passbolt-api/app/webroot/
-app/webroot/crossdomain.xml      /usr/share/php/passbolt-api/app/webroot/
-app/webroot/favicon.ico          /usr/share/php/passbolt-api/app/webroot/
-app/webroot/index.php            /usr/share/php/passbolt-api/app/webroot/
-app/webroot/robots.txt           /usr/share/php/passbolt-api/app/webroot/
-app/webroot/test.php             /usr/share/php/passbolt-api/app/webroot/
+# Source
+src /usr/share/php/passbolt-api/
+bin /usr/share/php/passbolt-api/
+index.php /usr/share/php/passbolt-api/
+plugins /usr/share/php/passbolt-api/
+src /usr/share/php/passbolt-api/
+webroot /usr/share/php/passbolt-api/
 
 # Configuration files
-app/Config/acl.ini.php /etc/passbolt/
-app/Config/acl.php /etc/passbolt/
-app/Config/bootstrap.php /etc/passbolt/
-app/Config/default.php /etc/passbolt/
-app/Config/file_storage.php /etc/passbolt/
-app/Config/routes.php /etc/passbolt/
-app/Config/version.php /etc/passbolt/
-# DB Schemas
-app/Config/Schema/* /etc/passbolt/Schema
+config/* /etc/passbolt/
 
 # All temporary files
-app/tmp/* /var/lib/passbolt/tmp/
-
+tmp/* /var/lib/passbolt/tmp/

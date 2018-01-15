@@ -1,14 +1,14 @@
 # fonts-font-awesome
-/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.ttf /usr/share/php/passbolt-api/app/webroot/fonts/fontawesome-webfont.ttf
+/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.ttf /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.ttf
 
 # libjs-passbolt-embedded
-/usr/share/javascript/passbolt-lib /usr/share/php/passbolt-api/app/webroot/js/lib
+/usr/share/javascript/passbolt-lib /usr/share/php/passbolt-api/webroot/js/lib
 
 # Configuration directory
-/etc/passbolt /usr/share/php/passbolt-api/app/Config
+/etc/passbolt /usr/share/php/passbolt-api/config
 
 # Application temporary files directory
-/var/lib/passbolt/tmp /usr/share/php/passbolt-api/app/tmp
+/var/lib/passbolt/tmp /usr/share/php/passbolt-api/tmp
 
 # Public images
-/var/lib/passbolt/img-public /usr/share/php/passbolt-api/app/webroot/img/public
+/var/lib/passbolt/img-public /usr/share/php/passbolt-api/webroot/img/public
