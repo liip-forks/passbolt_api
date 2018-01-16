@@ -1,3 +1,10 @@
+Description: Set the paths according to where the files are shipped
+
+ * Code goes to /usr/share/php/passbolt-api/
+ * Configuration goes to /etc/passbolt/
+ * Variable files (cold cache and GPG keys) go to /var/lib/passbolt/
+ * Logs go to /var/log/passbolt/
+
 --- a/config/paths.php
 +++ b/config/paths.php
 @@ -28,7 +28,17 @@
