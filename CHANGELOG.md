@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- PASSBOLT-2601: Travis v2: phpunit, coverage, phpcs
+- PASSBOLT-2618: PHP 7.2 compatibility fixes
+- PASSBOLT-2615: Review Gpg default configuration
 
 ## [1.6.9] - 2018-01-12
 ### Fixed
