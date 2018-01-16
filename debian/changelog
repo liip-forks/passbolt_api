@@ -1,8 +1,8 @@
-passbolt-api (2.0.0~rc1-1~2018011600) unstable; urgency=medium
+passbolt-api (2.0.0~rc1-1~2018011601) unstable; urgency=medium
 
   * Initial 2.0.0~rc1 packaging update
 
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 16 Jan 2018 14:02:54 +0100
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 16 Jan 2018 14:21:27 +0100
 
 passbolt-api (1.6.5-6-g887b553c6-1~2018011001) unstable; urgency=medium
 
