@@ -30,7 +30,7 @@ echo $this->element('Email/module/avatar',[
         'first_name' => Purifier::clean($admin->profile->first_name),
         'last_name' => Purifier::clean($admin->profile->last_name),
         'datetime' => FrozenTime::now(),
-        'text' => __('{0} updated the group {1}', $admin->profile->first_name, $group->name)
+        'text' => __('{0} updated the group {1}', Purifier::clean($admin->profile->first_name), Purifier::clean($group->name))
     ])
 ]);
 
@@ -43,6 +43,6 @@ echo $this->element('Email/content/group_changes_summary', [
 ]);
 
 echo $this->element('Email/module/button', [
-    'url' => Router::url('/'),
+    'url' => Router::url('/', true),
     'text' => __('log in passbolt')
 ]);

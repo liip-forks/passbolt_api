@@ -33,7 +33,7 @@
 return [
 
     /**
-     * DEFAULT PASSBOLT CONFIGURATION
+     * DEFAULT APP CONFIGURATION
      *
      * All the information in this section must be provided in order for passbolt to work
      * This configuration overrides the CakePHP defaults locating in app.php
@@ -62,12 +62,21 @@ return [
         'default' => [
             'host' => 'localhost',
             'port' => 25,
-            'timeout' => 30,
             'username' => 'user',
             'password' => 'secret',
-            'client' => null,
+            // Is this a secure connection? true if yes, null if no.
             'tls' => null,
-            'url' => null,
+            //'timeout' => 30,
+            //'client' => null,
+            //'url' => null,
+        ],
+    ],
+    'Email' => [
+        'default' => [
+            // Defines the default name and email of the sender of the emails.
+            'from' => ['passbolt@your_organization.com' => 'Passbolt'],
+            //'charset' => 'utf-8',
+            //'headerCharset' => 'utf-8',
         ],
     ],
 
@@ -100,8 +109,8 @@ return [
             'serverKey' => [
                 // Server private key fingerprint.
                 'fingerprint' => '',
-                //'public' => ROOT . DS . 'config' . DS . 'gpg' . DS . 'serverkey.asc',
-                //'private' => ROOT . DS . 'config' . DS . 'gpg' . DS . 'serverkey_private.asc',
+                //'public' => CONFIG . DS . 'gpg' . DS . 'serverkey.asc',
+                //'private' => CONFIG . DS . 'gpg' . DS . 'serverkey_private.asc',
             ],
         ],
     ],
@@ -124,8 +133,8 @@ return [
 //        'gpg' => [
 //            'serverKey' => [
 //                'fingerprint' => '2FC8945833C51946E937F9FED47B0811573EE67E',
-//                'public' => ROOT . DS . 'config' . DS . 'gpg' . DS . 'unsecure.key',
-//                'private' => ROOT . DS . 'config' . DS . 'gpg' . DS . 'unsecure_private.key',
+//                'public' => CONFIG . DS . 'gpg' . DS . 'unsecure.key',
+//                'private' => CONFIG . DS . 'gpg' . DS . 'unsecure_private.key',
 //            ],
 //        ],
 //    ]

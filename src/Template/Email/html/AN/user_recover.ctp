@@ -19,7 +19,6 @@ $user = $body['user'];
 $token = $body['token'];
 
 echo $this->element('Email/module/avatar',[
-    // @TODO avatar url in email
     'url' => Router::url($user->profile->avatar->url['small'], true),
     'text' => $this->element('Email/module/avatar_text', [
         'username' => Purifier::clean($user->username),
@@ -39,6 +38,6 @@ echo $this->element('Email/module/text', [
 ]);
 
 echo $this->element('Email/module/button', [
-    'url' => Router::url('/setup/recover/' . $user['id'] . '/' . $token['token']),
+    'url' => Router::url('/setup/recover/' . $user['id'] . '/' . $token['token'], true),
     'text' => __('start recovery')
 ]);
