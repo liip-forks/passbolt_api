@@ -21,7 +21,7 @@ Depends: ${misc:Depends},
  libjs-passbolt-embedded (= ${source:Version}),
  php-passbolt-embedded (= ${source:Version}),
 # From src:passbolt-styleguide
- passbolt-style (>= 1.6.11),
+ passbolt-style (>= 2.0.4),
 # We can use Debian's
  fonts-font-awesome,
 # Passbolt dependencies
