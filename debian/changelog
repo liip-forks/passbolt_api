@@ -1,3 +1,9 @@
+passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013002) unstable; urgency=medium
+
+  * Fix paths' img name
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 30 Jan 2018 17:54:04 +0100
+
 passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013001) unstable; urgency=medium
 
   * Fix Recom{,m}end typo
