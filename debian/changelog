@@ -1,3 +1,10 @@
+passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013001) unstable; urgency=medium
+
+  * Fix Recom{,m}end typo
+  * Add a symlink to img/public for the sake of easier web server configuration
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 30 Jan 2018 17:45:23 +0100
+
 passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013000) unstable; urgency=medium
 
   * New 2.0.0-rc1 snapshot
