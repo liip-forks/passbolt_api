@@ -1,5 +1,10 @@
 # fonts-font-awesome
-/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.ttf /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.ttf
+/usr/share/fonts-font-awesome/fonts/FontAwesome.otf             /usr/share/php/passbolt-api/webroot/fonts/FontAwesome.otf
+/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.eot     /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.eot
+/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.svg     /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.svg
+/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.ttf     /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.ttf
+/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.woff    /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.woff
+/usr/share/fonts-font-awesome/fonts/fontawesome-webfont.woff2   /usr/share/php/passbolt-api/webroot/fonts/fontawesome-webfont.woff2
 
 # libjs-passbolt-embedded
 /usr/share/javascript/passbolt-app /usr/share/php/passbolt-api/webroot/js/app
