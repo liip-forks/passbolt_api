@@ -2,11 +2,10 @@ Description: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
 
 --- a/config/default.php
 +++ b/config/default.php
-@@ -101,24 +101,18 @@
- 
+@@ -102,16 +102,11 @@
          // GPG Configuration.
          'gpg' => [
--            // Tell GPG where to find the keyring.
+             // Tell GPG where to find the keyring.
 -            // If putenv is set to false, gnupg will use the default path ~/.gnupg.
 -            // For example :
 -            // - Apache on Centos it would be in '/usr/share/httpd/.gnupg'
@@ -14,7 +13,7 @@ Description: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
 -            // - Nginx on Centos it would be in '/var/lib/nginx/.gnupg'
 -            // - etc.
 -            'keyring' => getenv("HOME") . DS . '.gnupg',
-+            // Tell GPG where to find the keyring. In Debian, this is /var/lib/passbolt/gnupghome
++            // In Debian, this is /var/lib/passbolt/gnupghome
 +            'keyring' => VAR_DIR . DS . 'gnupghome',
  
              // Replace GNUPGHOME with above value even if it is set.
@@ -23,12 +22,3 @@ Description: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
  
              // Main server key.
              'serverKey' => [
-                 // Server public / private key location and fingerprint.
-                 'fingerprint' => env('PASSBOLT_GPG_SERVER_KEY_FINGERPRINT', null),
--                'public' => env('PASSBOLT_GPG_SERVER_KEY_PUBLIC', ROOT . DS . 'config' . DS . 'gpg' . DS . 'serverkey.asc'),
--                'private' => env('PASSBOLT_GPG_SERVER_KEY_PRIVATE', ROOT . DS . 'config' . DS . 'gpg' . DS . 'serverkey_private.asc'),
-+                'public' => env('PASSBOLT_GPG_SERVER_KEY_PUBLIC', CONFIG . DS . 'gpg' . DS . 'serverkey.asc'),
-+                'private' => env('PASSBOLT_GPG_SERVER_KEY_PRIVATE', CONFIG . DS . 'gpg' . DS . 'serverkey_private.asc'),
- 
-                 // PHP Gnupg module currently does not support passphrase, please leave blank.
-                 'passphrase' => ''
