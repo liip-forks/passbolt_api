@@ -1,2 +1,3 @@
 # libjs-passbolt-embedded
 /usr/share/javascript/passbolt-app /usr/share/php/passbolt-api/webroot/js/app
+/var/lib/passbolt/img/public /usr/share/php/passbolt-api/webroot/img/public
