@@ -40,7 +40,7 @@ Description: Set the paths according to where the files are shipped
   * File path to the webroot directory.
   */
 -define('IMAGES', WWW_ROOT . 'img' . DS);
-+define('IMAGES',  VAR_DIR . DS . 'img-public' . DS);
++define('IMAGES',  VAR_DIR . DS . 'img' . DS);
  
  /**
   * Path to the tests directory.
