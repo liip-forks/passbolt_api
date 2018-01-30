@@ -22,8 +22,6 @@ Depends: ${misc:Depends},
  php-passbolt-embedded (= ${source:Version}),
 # From src:passbolt-styleguide
  passbolt-style (>= 2.0.4),
-# We can use Debian's
- fonts-font-awesome,
 # Passbolt dependencies
  php (>= 7),
  php-gd (>= 7),
