@@ -11,7 +11,7 @@ src /usr/share/php/passbolt-api/
 # This is shipped by passbolt-style
 # webroot/css/ /usr/share/php/passbolt-api/webroot
 # webroot/fonts/ /usr/share/php/passbolt-api/webroot
-webroot/img/ /usr/share/php/passbolt-api/webroot
+# webroot/img/ /usr/share/php/passbolt-api/webroot
 webroot/js/ /usr/share/php/passbolt-api/webroot
 webroot/.htaccess /usr/share/php/passbolt-api/webroot
 webroot/apple-touch-icon-114x114-precomposed.png /usr/share/php/passbolt-api/webroot
