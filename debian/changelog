@@ -1,3 +1,9 @@
+passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013003) unstable; urgency=medium
+
+  * Stop installing the favicons
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Wed, 31 Jan 2018 09:37:06 +0100
+
 passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013002) unstable; urgency=medium
 
   * Fix paths' img name
