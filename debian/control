@@ -41,6 +41,7 @@ Description: Passbolt API - Password Manager for teams
 Package: libjs-passbolt-embedded
 Section: non-free/javascript
 Architecture: all
+Depends: ${misc:Depends},
 Description: Passbolt API - Password Manager for teams - JS libs
  It allows you to securely share and store credentials. For instance, the wifi
  password of your office, the administrator password of a router or your
@@ -52,8 +53,9 @@ Description: Passbolt API - Password Manager for teams - JS libs
 Package: php-passbolt-embedded
 Section: non-free/php
 Architecture: all
+Depends: ${misc:Depends},
 # CakePHP dependencies
-Depends: php-intl (>= 7),
+ php-intl (>= 7),
  php-mbstring (>= 7),
 Description: Passbolt API - Password Manager for teams - PHP libs
  It allows you to securely share and store credentials. For instance, the wifi
