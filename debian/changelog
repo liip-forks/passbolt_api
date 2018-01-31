@@ -1,3 +1,25 @@
+passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013005) unstable; urgency=medium
+
+  [ Diego Lendoiro ]
+  * Make sure to use composer with --no-dev
+
+  [ Didier 'OdyX' Raboud ]
+  * Add debian/gbp.conf
+  * Use ${misc:Depends} where appropriate
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Wed, 31 Jan 2018 15:08:58 +0100
+
+passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013004) unstable; urgency=medium
+
+  [ Diego Lendoiro ]
+  * Make sure to use composer with --no-dev
+
+  [ Didier 'OdyX' Raboud ]
+  * Add debian/gbp.conf
+  * Use  where appropriate
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Wed, 31 Jan 2018 15:08:36 +0100
+
 passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013003) unstable; urgency=medium
 
   * Stop installing the favicons
