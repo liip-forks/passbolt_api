@@ -6,7 +6,7 @@
 override_dh_auto_build:
 	dh_auto_build
 	# Also _RUN_ composer install. This is directly AGAINST Debian Policy §4.9 "For packages in the main archive, no required targets may attempt network access." 
-	echo "Y" | composer install
+	echo "Y" | composer install --no-dev
 
 override_dh_install:
 	dh_install
