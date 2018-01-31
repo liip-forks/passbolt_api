@@ -14,13 +14,6 @@ src /usr/share/php/passbolt-api/
 # webroot/img/ /usr/share/php/passbolt-api/webroot
 webroot/js/ /usr/share/php/passbolt-api/webroot
 webroot/.htaccess /usr/share/php/passbolt-api/webroot
-webroot/apple-touch-icon-114x114-precomposed.png /usr/share/php/passbolt-api/webroot
-webroot/apple-touch-icon-57x57-precomposed.png /usr/share/php/passbolt-api/webroot
-webroot/apple-touch-icon-72x72-precomposed.png /usr/share/php/passbolt-api/webroot
-webroot/apple-touch-icon-precomposed.png /usr/share/php/passbolt-api/webroot
-webroot/apple-touch-icon.png /usr/share/php/passbolt-api/webroot
-webroot/favicon.ico /usr/share/php/passbolt-api/webroot
-webroot/favicon.png /usr/share/php/passbolt-api/webroot
 webroot/index.php /usr/share/php/passbolt-api/webroot
 
 # Configuration files
