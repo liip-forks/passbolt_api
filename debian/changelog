@@ -1,3 +1,10 @@
+passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018020100) unstable; urgency=medium
+
+  * Fix git-dpm
+  * Drop the promo blocks
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Mon, 05 Feb 2018 17:19:24 +0100
+
 passbolt-api (2.0.0-rc1-16-g701a4bb3b-1~2018013005) unstable; urgency=medium
 
   [ Diego Lendoiro ]
