@@ -29,6 +29,6 @@ if (version_compare(phpversion(), $minVersion, '<')) {
 }
 
 require dirname(__DIR__) . '/vendor/autoload.php';
-include dirname(__DIR__) . '/config/bootstrap.php';
+include '/etc/passbolt/bootstrap.php';
 
 exit(Cake\Console\ShellDispatcher::run($argv));
