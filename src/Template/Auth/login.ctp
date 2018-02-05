@@ -35,11 +35,7 @@ if ($browser == 'firefox' || $browser == 'chrome') {
         <?php echo $this->element($pluginCheckTemplate); ?>
     </div>
     <div class="row">
-        <div class="col3 push1 github-block">
-            <?php echo $this->element('Public/Promo/cloud'); ?>
-        </div>
-        <div class="col3 github-block">
-            <?php echo $this->element('Public/Promo/pro'); ?>
+        <div class="col6">
         </div>
         <div class="col4 github-block push1 last">
             <?php echo $this->element('Public/Promo/github'); ?>
