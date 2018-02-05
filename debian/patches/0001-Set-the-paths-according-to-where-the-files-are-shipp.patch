@@ -1,13 +1,35 @@
-Description: Set the paths according to where the files are shipped
+From 81f119b2f5c489a4669c4d24e956f3b9d8d39a34 Mon Sep 17 00:00:00 2001
+From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
+Date: Mon, 5 Feb 2018 17:13:27 +0100
+Subject: Set the paths according to where the files are shipped
 
  * Code goes to /usr/share/php/passbolt-api/
  * Configuration goes to /etc/passbolt/
  * Variable files (cold cache and GPG keys) go to /var/lib/passbolt/
  * Logs go to /var/log/passbolt/
+---
+ bin/cake.php      |  2 +-
+ config/paths.php  | 20 +++++++++++++++-----
+ webroot/index.php |  2 +-
+ 3 files changed, 17 insertions(+), 7 deletions(-)
 
+diff --git a/bin/cake.php b/bin/cake.php
+index 5ee314c94..639c94abe 100755
+--- a/bin/cake.php
++++ b/bin/cake.php
+@@ -29,6 +29,6 @@ if (version_compare(phpversion(), $minVersion, '<')) {
+ }
+ 
+ require dirname(__DIR__) . '/vendor/autoload.php';
+-include dirname(__DIR__) . '/config/bootstrap.php';
++include '/etc/passbolt/bootstrap.php';
+ 
+ exit(Cake\Console\ShellDispatcher::run($argv));
+diff --git a/config/paths.php b/config/paths.php
+index 805987f8f..2d144d9f9 100644
 --- a/config/paths.php
 +++ b/config/paths.php
-@@ -28,7 +28,17 @@
+@@ -28,7 +28,17 @@ if (!defined('DS')) {
  /**
   * The full path to the directory which holds "src", WITHOUT a trailing DS.
   */
@@ -26,7 +48,7 @@ Description: Set the paths according to where the files are shipped
  
  /**
   * The actual directory name for the application directory. Normally
-@@ -44,7 +54,7 @@
+@@ -44,7 +54,7 @@ define('APP', ROOT . DS . APP_DIR . DS);
  /**
   * Path to the config directory.
   */
@@ -35,7 +57,7 @@ Description: Set the paths according to where the files are shipped
  
  /**
   * File path to the webroot directory.
-@@ -54,7 +64,7 @@
+@@ -54,7 +64,7 @@ define('WWW_ROOT', ROOT . DS . 'webroot' . DS);
  /**
   * File path to the webroot directory.
   */
@@ -44,7 +66,7 @@ Description: Set the paths according to where the files are shipped
  
  /**
   * Path to the tests directory.
-@@ -69,12 +79,12 @@
+@@ -69,12 +79,12 @@ define('FIXTURES', TESTS . DS . 'Fixture' . DS);
  /**
   * Path to the temporary files directory.
   */
@@ -59,9 +81,11 @@ Description: Set the paths according to where the files are shipped
  
  /**
   * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
+diff --git a/webroot/index.php b/webroot/index.php
+index 6791f475c..e302a63ce 100644
 --- a/webroot/index.php
 +++ b/webroot/index.php
-@@ -30,7 +30,7 @@
+@@ -30,7 +30,7 @@ use App\Application;
  use Cake\Http\Server;
  
  // Bind your application to the server.
@@ -70,13 +94,3 @@ Description: Set the paths according to where the files are shipped
  
  // Run the request/response through the application
  // and emit the response.
---- a/bin/cake.php
-+++ b/bin/cake.php
-@@ -29,6 +29,6 @@
- }
- 
- require dirname(__DIR__) . '/vendor/autoload.php';
--include dirname(__DIR__) . '/config/bootstrap.php';
-+include '/etc/passbolt/bootstrap.php';
- 
- exit(Cake\Console\ShellDispatcher::run($argv));

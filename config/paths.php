@@ -28,7 +28,17 @@ if (!defined('DS')) {
 /**
  * The full path to the directory which holds "src", WITHOUT a trailing DS.
  */
-define('ROOT', dirname(__DIR__));
+define('ROOT', '/usr/share/php/passbolt-api');
+
+/**
+ * The full path to the "variable data" passbolt working directory, WITHOUT a trailing DS.
+ */
+define('VAR_DIR', '/var/lib/passbolt');
+
+/**
+ * The full path to the "logs" passbolt working directory, WITHOUT a trailing DS.
+ */
+define('LOG_DIR', '/var/log/passbolt');
 
 /**
  * The actual directory name for the application directory. Normally
@@ -44,7 +54,7 @@ define('APP', ROOT . DS . APP_DIR . DS);
 /**
  * Path to the config directory.
  */
-define('CONFIG', ROOT . DS . 'config' . DS);
+define('CONFIG', '/etc/passbolt' . DS);
 
 /**
  * File path to the webroot directory.
@@ -54,7 +64,7 @@ define('WWW_ROOT', ROOT . DS . 'webroot' . DS);
 /**
  * File path to the webroot directory.
  */
-define('IMAGES', WWW_ROOT . 'img' . DS);
+define('IMAGES',  VAR_DIR . DS . 'img' . DS);
 
 /**
  * Path to the tests directory.
@@ -69,12 +79,12 @@ define('FIXTURES', TESTS . DS . 'Fixture' . DS);
 /**
  * Path to the temporary files directory.
  */
-define('TMP', ROOT . DS . 'tmp' . DS);
+define('TMP', VAR_DIR . DS . 'tmp' . DS);
 
 /**
  * Path to the logs directory.
  */
-define('LOGS', ROOT . DS . 'logs' . DS);
+define('LOGS', LOG_DIR . DS);
 
 /**
  * Path to the cache files directory. It can be shared between hosts in a multi-server setup.

@@ -1,2 +1,2 @@
-debianized-paths.patch
-gnupghome-in-var.patch
+0001-Set-the-paths-according-to-where-the-files-are-shipp.patch
+0002-Set-the-GnuPG-homedir-in-var-lib-passbolt-gnupghome..patch
