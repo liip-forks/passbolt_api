@@ -104,16 +104,11 @@ return [
         // GPG Configuration.
         'gpg' => [
             // Tell GPG where to find the keyring.
-            // If putenv is set to false, gnupg will use the default path ~/.gnupg.
-            // For example :
-            // - Apache on Centos it would be in '/usr/share/httpd/.gnupg'
-            // - Apache on Debian it would be in '/var/www/.gnupg'
-            // - Nginx on Centos it would be in '/var/lib/nginx/.gnupg'
-            // - etc.
-            'keyring' => getenv("HOME") . DS . '.gnupg',
+            // In Debian, this is /var/lib/passbolt/gnupghome
+            'keyring' => VAR_DIR . DS . 'gnupghome',
 
             // Replace GNUPGHOME with above value even if it is set.
-            'putenv' => false,
+            'putenv' => true,
 
             // Main server key.
             'serverKey' => [
