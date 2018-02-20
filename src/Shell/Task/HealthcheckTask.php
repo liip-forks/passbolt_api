@@ -175,19 +175,19 @@ class HealthcheckTask extends AppShell
         $this->title(__('Environment'));
         $this->assert(
             $checks['environment']['phpVersion'],
-            __('PHP version {0}', PHP_VERSION),
-            __('PHP version is too low, passbolt need PHP 7.0 or higher')
+            __('PHP version {0}.', PHP_VERSION),
+            __('PHP version is too low, passbolt need PHP 7.0 or higher.')
         );
         $this->assert(
             $checks['environment']['pcre'],
-            __('PCRE compiled with unicode support'),
-            __('PCRE has not been compiled with Unicode support'),
-            __('Recompile PCRE with Unicode support by adding --enable-unicode-properties when configuring')
+            __('PCRE compiled with unicode support.'),
+            __('PCRE has not been compiled with Unicode support.'),
+            __('Recompile PCRE with Unicode support by adding --enable-unicode-properties when configuring.')
         );
         $this->assert(
             $checks['environment']['tmpWritable'],
-            __('The temporary directory and its content are writable'),
-            __('The temporary directory and its content are not writable'),
+            __('The temporary directory and its content are writable.'),
+            __('The temporary directory and its content are not writable.'),
             [
                 __('Ensure the temporary directory and its content are writable by the user the webserver user.'),
                 __('you can try:'),
@@ -198,8 +198,8 @@ class HealthcheckTask extends AppShell
         );
         $this->assert(
             $checks['environment']['imgPublicWritable'],
-            __('The public image directory and its content are writable'),
-            __('The public image directory and its content are not writable'),
+            __('The public image directory and its content are writable.'),
+            __('The public image directory and its content are not writable.'),
             [
                 __('Ensure the public image directory and its content are writable by the webserver user.'),
                 __('you can try:'),
@@ -210,14 +210,39 @@ class HealthcheckTask extends AppShell
         );
         $this->assert(
             $checks['environment']['logWritable'],
-            __('The logs directory and its content are writable'),
-            __('The logs directory and its content are not writable'),
+            __('The logs directory and its content are writable.'),
+            __('The logs directory and its content are not writable.'),
             [
                 __('Ensure the logs directory and its content are writable by the user the webserver user.'),
                 __('you can try:'),
                 'sudo chown -R ' . PROCESS_USER . ':' . PROCESS_USER . ' ' . ROOT . 'logs',
                 'sudo chmod 775 $(find ' . ROOT . 'logs -type d)',
                 'sudo chmod 664 $(find ' . ROOT . 'logs -type f)',
+            ]
+        );
+        $this->assert(
+            $checks['environment']['image'],
+            __('GD or Imagick extension is installed.'),
+            __('You must enable the gd or imagick extensions to use Passbolt.'),
+            [
+                __('See. https://secure.php.net/manual/en/book.image.php'),
+                __('See. https://secure.php.net/manual/en/book.imagick.php'),
+            ]
+        );
+        $this->assert(
+            $checks['environment']['intl'],
+            __('Intl extension is installed.'),
+            __('You must enable the intl extension to use Passbolt.'),
+            [
+                __('See. https://secure.php.net/manual/en/book.intl.php')
+            ]
+        );
+        $this->assert(
+            $checks['environment']['mbstring'],
+            __('Mbstring extension is installed.'),
+            __('You must enable the mbstring extension to use Passbolt.'),
+            [
+                __('See. https://secure.php.net/manual/en/book.mbstring.php')
             ]
         );
     }
@@ -565,9 +590,9 @@ class HealthcheckTask extends AppShell
             ]
         );
         $this->assert(
-            $checks['gpg']['gpgKeyPrivateInKeyring'],
-            __('The server key defined in the config/passbolt.php is in the keyring.'),
-            __('The server key defined in the config/passbolt.php is not in the keyring'),
+            $checks['gpg']['gpgKeyPublicInKeyring'],
+            __('The server public key defined in the config/passbolt.php is in the keyring.'),
+            __('The server public key defined in the config/passbolt.php is not in the keyring'),
             [
                 __('Import the private server key in the keyring of the webserver user.'),
                 __('you can try:'),
@@ -581,22 +606,46 @@ class HealthcheckTask extends AppShell
             __('Edit or generate another key with a valid email id.')
         );
 
-        if ($checks['gpg']['gpgKeyPrivateInKeyring']) {
+        if ($checks['gpg']['gpgKeyPublicInKeyring']) {
+            $tip = [
+                __('Make sure that the server private key is valid and that there is no passphrase.'),
+                __('Make sure you imported the private server key in the keyring of the webserver user.'),
+                __('you can try:'),
+                'sudo su -s /bin/bash -c "gpg --home ' . $checks['gpg']['info']['gpgHome'] . ' --import ' . $checks['gpg']['info']['gpgKeyPrivate'] . '" ' . PROCESS_USER
+            ];
+
             $this->assert(
                 $checks['gpg']['canEncrypt'],
-                __('The public key can be used to encrypt and sign a message.'),
-                __('The public key cannot be used to encrypt and sign a message'),
-                __('Make sure that the server public key is valid and that there is no passphrase.')
+                __('The public key can be used to encrypt a message.'),
+                __('The public key cannot be used to encrypt a message'),
+                $tip
             );
-
-            if ($checks['gpg']['canEncrypt']) {
-                $this->assert(
-                    $checks['gpg']['canDecrypt'],
-                    __('The private key can be used to decrypt a message.'),
-                    __('The private key cannot be used to decrypt a message'),
-                    __('Make sure that the server private key is valid and that there is no passphrase.')
-                );
-            }
+            $this->assert(
+                $checks['gpg']['canSign'],
+                __('The public key can be used to sign a message.'),
+                __('The public key cannot be used to sign a message'),
+                $tip
+            );
+            $this->assert(
+                $checks['gpg']['canEncryptSign'],
+                __('The public key can be used to encrypt and sign a message.'),
+                __('The public key cannot be used to encrypt and sign a message')
+            );
+            $this->assert(
+                $checks['gpg']['canDecrypt'],
+                __('The private key can be used to decrypt a message.'),
+                __('The private key cannot be used to decrypt a message')
+            );
+            $this->assert(
+                $checks['gpg']['canDecryptVerify'],
+                __('The private key can be used to decrypt and verify a message.'),
+                __('The private key cannot be used to decrypt and verify a message')
+            );
+            $this->assert(
+                $checks['gpg']['canVerify'],
+                __('The public key can be used to verify a signature.'),
+                __('The public key cannot be used to verify a signature.')
+            );
         }
     }
 

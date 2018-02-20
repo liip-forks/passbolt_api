@@ -1,4 +1,4 @@
-From 81f119b2f5c489a4669c4d24e956f3b9d8d39a34 Mon Sep 17 00:00:00 2001
+From 84fad5f339c3931b0c3cd9b86be3975dd09de1f1 Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:13:27 +0100
 Subject: Set the paths according to where the files are shipped
