@@ -1,4 +1,4 @@
-From 81b28ddf2b455631d13f9c82d72785c9adb9af47 Mon Sep 17 00:00:00 2001
+From 4fdfbfaf489edc45e6fc1fc6770789a10d96c0e8 Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:19:03 +0100
 Subject: Drop the promo blocks
@@ -8,7 +8,7 @@ Subject: Drop the promo blocks
  1 file changed, 1 insertion(+), 5 deletions(-)
 
 diff --git a/src/Template/Auth/login.ctp b/src/Template/Auth/login.ctp
-index 1376ddaf9..2629886e0 100644
+index f6ada67ec..95f542976 100644
 --- a/src/Template/Auth/login.ctp
 +++ b/src/Template/Auth/login.ctp
 @@ -35,11 +35,7 @@ if ($browser == 'firefox' || $browser == 'chrome') {
