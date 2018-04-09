@@ -195,7 +195,7 @@ class Healthchecks
         // Do not use default connection when test are running
         // Otherwise tables may be dropped
         $connectionName = 'default';
-        if (Configure::read('passbolt.test.isRunning')) {
+        if (defined('TEST_IS_RUNNING') && TEST_IS_RUNNING) {
             $connectionName = 'test';
         }
 
@@ -421,6 +421,7 @@ class Healthchecks
                 $_gpg->adddecryptkey(Configure::read('passbolt.gpg.serverKey.fingerprint'), Configure::read('passbolt.gpg.serverKey.passphrase'));
 
                 try {
+                    $plaintext = "";
                     $info = $_gpg->verify($encryptedMessage2, false, $plaintext);
                     if ($info !== false && isset($info['fingerprint']) && Configure::read('passbolt.gpg.serverKey.fingerprint') == $info['fingerprint']) {
                         $checks['gpg']['canVerify'] = true;
@@ -529,5 +530,33 @@ class Healthchecks
         }
 
         return true;
+    }
+
+    /**
+     * Get schema tables list. (as in v2).
+     * @return array
+     */
+    public static function getSchemaTables()
+    {
+        return [
+            'authentication_tokens',
+            'burzum_file_storage_phinxlog',
+            'comments',
+            'email_queue',
+            'email_queue_phinxlog',
+            'favorites',
+            'file_storage',
+            'gpgkeys',
+            'groups',
+            'groups_users',
+            'permissions',
+            'phinxlog',
+            'profiles',
+            'resources',
+            'roles',
+            'secrets',
+            'user_agents',
+            'users',
+        ];
     }
 }

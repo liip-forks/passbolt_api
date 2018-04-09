@@ -31,6 +31,8 @@ return [
      *
      */
     'passbolt' => [
+        // Edition.
+        'edition' => 'ce',
 
         // Authentication & Authorisation.
         'auth' => [
@@ -118,6 +120,13 @@ return [
                 // PHP Gnupg module currently does not support passphrase, please leave blank.
                 'passphrase' => ''
             ],
+        ],
+
+        // Legal
+        'legal' => [
+            'privacy_policy' => [
+                'url' => env('PASSBOLT_LEGAL_PRIVACYPOLICYURL', '')
+            ]
         ],
 
         // Is public registration allowed.

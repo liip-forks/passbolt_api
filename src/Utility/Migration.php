@@ -30,7 +30,7 @@ class Migration
     public static function needMigration()
     {
         // don't show migrations when running tests
-        if (Configure::read('passbolt.test.isRunning')) {
+        if (defined('TEST_IS_RUNNING') && TEST_IS_RUNNING) {
             return false;
         }
         $Migrations = new Migrations();
@@ -74,11 +74,11 @@ class Migration
             } catch (Exception $e) {
                 throw new Exception(__('Could not connect to github repository'));
             }
-            $tags = (json_decode($results->body));
-            if (!isset($tags[0]) || !property_exists($tags[0], 'name')) {
+            $tags = json_decode($results->body, true);
+            if (!isset($tags[0]) || !isset($tags[0]['name'])) {
                 throw new Exception(__('Could not read tag information on github repository'));
             }
-            $remoteTagName = $tags[0]->name;
+            $remoteTagName = $tags[0]['name'];
             Configure::write('passbolt.remote.version', $remoteTagName);
         }
 
