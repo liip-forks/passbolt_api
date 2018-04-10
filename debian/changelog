@@ -1,3 +1,9 @@
+passbolt-api (2.0.1-1~2018041000) unstable; urgency=medium
+
+  * New 2.0.1 upstream release
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 10 Apr 2018 08:54:06 +0200
+
 passbolt-api (2.0.0-1~2018040900) unstable; urgency=medium
 
   * New 2.0.0 upstream release
