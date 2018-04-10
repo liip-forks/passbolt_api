@@ -1,4 +1,4 @@
-From d94eb15b06e38a4fd226b40bbc78723ce9467d3b Mon Sep 17 00:00:00 2001
+From e166063b33f101e83a6225427597eafa24535c5a Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:13:28 +0100
 Subject: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
@@ -9,7 +9,7 @@ Subject: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
  1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/config/default.php b/config/default.php
-index 21b9dc9d7..ce9eab35b 100644
+index b300ff646..e49fb2192 100644
 --- a/config/default.php
 +++ b/config/default.php
 @@ -104,16 +104,11 @@ return [
