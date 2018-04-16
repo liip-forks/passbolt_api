@@ -4,7 +4,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [2.0.1] - 2018-04-09
+## [2.0.1] - 2018-04-11
+### Added
+- PASSBOLT-2714: Implement the export feature
+- PASSBOLT-2716: Implement the import feature
+- PASSBOLT-2777: License check as console task
+- PASSBOLT-2732: Implement the License system
+- PASSBOLT-2709: Implement the remember me feature
+- PASSBOLT-2656: Implement the tags feature
+- PASSBOLT-2694: Implement the webinstaller feature
+
+### Improved
+- PASSBOLT-2768: Remove call to action from login page
+- PASSBOLT-2511: Improve passbolt Pro bootstrap
+- PASSBOLT-2511: Add pro plugins into bootstrap_plugins
+
 ### Fixed
 - GITHUB-239: Fix unsafe mode logic
 - GITHUB-240: Make sure unconfigured 'passbolt.plugins' doesn't break the extension
@@ -16,7 +30,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - PASSBOLT-2740: Update <3 link and add unsafe mode warning
 - PASSBOLT-2697: Add passbolt migrate shell with backup option prior migration
 - PASSBOLT-2803: Make the privacy policy footer link configurable in the settings
-- PASSBOLT-2720 Move dev dependencies out of the passbolt_api repo
+- PASSBOLT-2720: Move dev dependencies out of the passbolt_api repo
 - PASSBOLT-2511: passbolt pro bootstrap is moved in a separate folder
 
 ### Fixed
@@ -432,7 +446,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - AD: Admin
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/passbolt/passbolt_api/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/passbolt/passbolt_api/compare/v2.0.0-rc2...v2.0.0
 [2.0.0-rc2]: https://github.com/passbolt/passbolt_api/compare/v2.0.0-rc1...v2.0.0-rc2
 [2.0.0-rc1]: https://github.com/passbolt/passbolt_api/compare/v1.6.9...v2.0.0-rc1

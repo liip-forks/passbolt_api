@@ -34,11 +34,4 @@ if ($browser == 'firefox' || $browser == 'chrome') {
     <div class="row js_main-login-section">
         <?php echo $this->element($pluginCheckTemplate); ?>
     </div>
-    <div class="row">
-        <div class="col6">
-        </div>
-        <div class="col4 github-block push1 last">
-            <?php echo $this->element('Public/Promo/github'); ?>
-        </div>
-    </div>
 </div>
