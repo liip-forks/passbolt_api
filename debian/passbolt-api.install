@@ -6,7 +6,6 @@ index.php /usr/share/php/passbolt-api/
 src /usr/share/php/passbolt-api/
 bin /usr/share/php/passbolt-api/
 index.php /usr/share/php/passbolt-api/
-plugins /usr/share/php/passbolt-api/
 src /usr/share/php/passbolt-api/
 # This is shipped by passbolt-style
 # webroot/css/ /usr/share/php/passbolt-api/webroot
