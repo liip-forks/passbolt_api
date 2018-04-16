@@ -16,6 +16,12 @@ override_dh_install:
 	rm -Rf $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/webroot/js/app
 	# php-passbolt-embedded
 	find $(CURDIR)/debian/php-passbolt-embedded/ -type f \( -name '.git*' -o -iname 'license*' \) -delete
+	# Move some migrations to the -pro alternative
+	mkdir -p $(CURDIR)/debian/passbolt-api-pro-plugins/usr/share/php/passbolt-api/config/Migrations/
+	for migration in 20180202221500_V200InstallTagsPlugin; do \
+		mv $(CURDIR)/debian/passbolt-api/usr/share/php/passbolt-api/config/Migrations/$${migration}.php \
+		   $(CURDIR)/debian/passbolt-api-pro-plugins/usr/share/php/passbolt-api/config/Migrations/$${migration}.php; \
+	done
 
 override_dh_fixperms:
 	dh_fixperms
