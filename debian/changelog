@@ -1,3 +1,11 @@
+passbolt-api (2.0.1+pro-1~2018041600) unstable; urgency=medium
+
+  * Passbolt API pro 2.0.1
+
+  * Install plugins in passbolt-api-pro-plugins
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Mon, 16 Apr 2018 09:48:05 +0200
+
 passbolt-api (2.0.1-1~2018041000) unstable; urgency=medium
 
   * New 2.0.1 upstream release
