@@ -1,1 +1,7 @@
-plugins /usr/share/php/passbolt-api/
+config/bootstrap_plugins.php /etc/passbolt/
+plugins/Passbolt/Export               /usr/share/php/passbolt-api/plugins/Passbolt/
+plugins/Passbolt/Import               /usr/share/php/passbolt-api/plugins/Passbolt/
+plugins/Passbolt/License              /usr/share/php/passbolt-api/plugins/Passbolt/
+plugins/Passbolt/Pro                  /usr/share/php/passbolt-api/plugins/Passbolt/
+plugins/Passbolt/RememberMe           /usr/share/php/passbolt-api/plugins/Passbolt/
+plugins/Passbolt/Tags                 /usr/share/php/passbolt-api/plugins/Passbolt/
