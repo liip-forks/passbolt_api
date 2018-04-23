@@ -1,4 +1,4 @@
-From 65c4af517fe4a9a7aa49685c87a265ce89b5ab44 Mon Sep 17 00:00:00 2001
+From 86f6c4a7cc6f939c5bc9acf6da8678b252bfe0f5 Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:13:28 +0100
 Subject: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
