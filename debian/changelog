@@ -1,3 +1,9 @@
+passbolt-api (2.0.4+pro-1~2018043000) unstable; urgency=medium
+
+  * Passbolt API pro 2.0.4
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Mon, 30 Apr 2018 09:39:46 +0200
+
 passbolt-api (2.0.3+pro-1~2018042300) unstable; urgency=medium
 
   * Passbolt API pro 2.0.3 
