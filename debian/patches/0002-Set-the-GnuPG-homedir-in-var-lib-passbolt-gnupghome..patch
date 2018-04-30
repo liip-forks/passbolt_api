@@ -1,4 +1,4 @@
-From 86f6c4a7cc6f939c5bc9acf6da8678b252bfe0f5 Mon Sep 17 00:00:00 2001
+From bf546c33ebc4d1f5cb47449b84a72f04d2736f62 Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:13:28 +0100
 Subject: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
@@ -9,10 +9,10 @@ Subject: Set the GnuPG homedir in /var/lib/passbolt/gnupghome. Set the keys'
  1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/config/default.php b/config/default.php
-index b300ff646..e49fb2192 100644
+index d2ddda6799..71aa9d750f 100644
 --- a/config/default.php
 +++ b/config/default.php
-@@ -104,16 +104,11 @@ return [
+@@ -109,16 +109,11 @@ return [
          // GPG Configuration.
          'gpg' => [
              // Tell GPG where to find the keyring.

@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## [2.0.4] - 2018-04-25
+- COMMUNITY-599: Make email MX validation optional and not enabled by default
+- GITHUB-247: Fix secrets are not deleted when deleting a group or a user
 
 ## [2.0.3] - 2018-04-20
 ### Fixed
@@ -461,10 +464,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - AD: Admin
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.0.3...HEAD
-[2.0.3]: https://github.com/passbolt/passbolt_api/compare/v2.0.2...v2.0.3
-[2.0.2]: https://github.com/passbolt/passbolt_api/compare/v2.0.1...v2.0.2
-[2.0.1]: https://github.com/passbolt/passbolt_api/compare/v2.0.0...v2.0.1
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.0.0...HEAD
 [2.0.0]: https://github.com/passbolt/passbolt_api/compare/v2.0.0-rc2...v2.0.0
 [2.0.0-rc2]: https://github.com/passbolt/passbolt_api/compare/v2.0.0-rc1...v2.0.0-rc2
 [2.0.0-rc1]: https://github.com/passbolt/passbolt_api/compare/v1.6.9...v2.0.0-rc1
