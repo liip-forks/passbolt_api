@@ -2,9 +2,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [2.0.8] - 2018-05-09
+### Fixed
+- Fix css loaded are incorrect in webinstaller
+
+## [2.0.7] - 2018-05-09
+### Fixed
+- Fix missing css on error pages and add version numbers to CSS and JS files calls to prevent caching
+- Fix do not enable debugKit when debug is set to true
+
+## [2.0.5] - 2018-05-08
+### Fixed
+- PASSBOLT-2764: Fix Groups autocomplete does not work with less than 3 characters
+- PASSBOLT-2826: Upgrade styleguide to v2.1.0
+- PASSBOLT-2812: Rebuild fixtures with updated public keys
+
 ## [2.0.4] - 2018-04-25
+### Improved
 - COMMUNITY-599: Make email MX validation optional and not enabled by default
+
+### Fixed
 - GITHUB-247: Fix secrets are not deleted when deleting a group or a user
 
 ## [2.0.3] - 2018-04-20
@@ -465,6 +482,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AD: Admin
 
 [Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.0.0...HEAD
+[2.0.8]: https://github.com/passbolt/passbolt_api/compare/v2.0.7...v2.0.8
+[2.0.7]: https://github.com/passbolt/passbolt_api/compare/v2.0.5...v2.0.7
+[2.0.5]: https://github.com/passbolt/passbolt_api/compare/v2.0.4...v2.0.5
+[2.0.4]: https://github.com/passbolt/passbolt_api/compare/v2.0.3...v2.0.4
+[2.0.3]: https://github.com/passbolt/passbolt_api/compare/v2.0.2...v2.0.3
+[2.0.2]: https://github.com/passbolt/passbolt_api/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/passbolt/passbolt_api/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/passbolt/passbolt_api/compare/v2.0.0-rc2...v2.0.0
 [2.0.0-rc2]: https://github.com/passbolt/passbolt_api/compare/v2.0.0-rc1...v2.0.0-rc2
 [2.0.0-rc1]: https://github.com/passbolt/passbolt_api/compare/v1.6.9...v2.0.0-rc1
