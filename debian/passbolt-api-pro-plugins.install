@@ -1,4 +1,5 @@
 config/bootstrap_plugins.php /etc/passbolt/
+plugins/Passbolt/AccountSettings      /usr/share/php/passbolt-api/plugins/Passbolt/
 plugins/Passbolt/Export               /usr/share/php/passbolt-api/plugins/Passbolt/
 plugins/Passbolt/Import               /usr/share/php/passbolt-api/plugins/Passbolt/
 plugins/Passbolt/License              /usr/share/php/passbolt-api/plugins/Passbolt/
