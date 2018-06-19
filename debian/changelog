@@ -1,6 +1,7 @@
-passbolt-api (2.1.1+pro-1~2018061900) unstable; urgency=medium
+passbolt-api (2.1.1+pro-1~2018061901) unstable; urgency=medium
 
   * Passbolt API pro 2.1.1
+  * Add AccountSettings' plugin
 
  -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 19 Jun 2018 19:51:04 +0200
 
