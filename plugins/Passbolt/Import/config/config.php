@@ -10,6 +10,14 @@ return [
                         'csv',
                     ]
                 ],
+                'security' => [
+                    'csrfProtection' => [
+                        'unlockedActions' => [
+                            'ResourcesAdd' => ['add'],
+                            'ResourcesTagsAdd' => ['addPost']
+                        ]
+                    ]
+                ],
             ]
         ]
     ]

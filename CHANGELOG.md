@@ -4,6 +4,25 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.0] - 2018-08-13
+### Added
+- PASSBOLT-2906: Enable CSRF protection
+- PASSBOLT-2940: Implement app-js primary routes
+
+### Fixed
+- PASSBOLT-2805: Sort by date fix and sort by user first_name by default
+- PASSBOLT-2896: Fix filter by tag from the password details sidebar
+- PASSBOLT-2903: Fix logout link. It should target a full based url link
+- PASSBOLT-2926: Fix session timeout check
+- PASSBOLT-2927: Fix appjs ajax error handler
+- PASSBOLT-2941: Grid performance fix
+- PASSBOLT-2906: Disable the ResourcesAdd entry point CSRF protection to allow the plugin to use it with the import feature
+- PASSBOLT-2906: Disable the ResourcesTagsAdd entry point CSRF protection to allow the plugin to use it with the import feature
+- PASSBOLT-2963: Persist the license in a file
+
+### Improved
+- PASSBOLT-2933: Upgrade to canjs 4
+
 ## [2.1.0] - 2018-06-14
 ### Added
 - PASSBOLT-2878: Add default theme
@@ -504,7 +523,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - AD: Admin
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/passbolt/passbolt_api/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/passbolt/passbolt_api/compare/v2.0.8...v2.1.0
 [2.0.8]: https://github.com/passbolt/passbolt_api/compare/v2.0.7...v2.0.8
 [2.0.7]: https://github.com/passbolt/passbolt_api/compare/v2.0.5...v2.0.7
