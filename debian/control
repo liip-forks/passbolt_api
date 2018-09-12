@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 10),
  composer,
  git,
  unzip,
+ php-ldap,
 # CakePHP 3
  php-intl,
  php-mbstring,
