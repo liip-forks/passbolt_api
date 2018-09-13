@@ -1,3 +1,9 @@
+passbolt-api (2.3.0+pro-1~2018091300) unstable; urgency=medium
+
+  * Add DirectorySync plugin in pro
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Thu, 13 Sep 2018 09:34:28 +0200
+
 passbolt-api (2.3.0+pro-1~2018091201) unstable; urgency=medium
 
   * Add php-ldap as B-D
