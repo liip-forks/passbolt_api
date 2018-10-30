@@ -157,11 +157,8 @@ return [
                 'active' => true,
                 'unlockedActions' => [
                     'AuthLogin' => ['loginPost'],
-                    'GroupsAdd' => ['addPost'],
-                    'GroupsUpdate' => ['dryRun', 'update'],
                     'RecoverComplete' => ['complete'],
                     'SetupComplete' => ['complete'],
-                    'Share' => ['dryRun'],
                 ]
             ]
         ],
