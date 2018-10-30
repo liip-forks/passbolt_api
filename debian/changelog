@@ -1,3 +1,9 @@
+passbolt-api (2.4.0+pro-1~2018103000) unstable; urgency=medium
+
+  * Passbolt API pro 2.4.0
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 30 Oct 2018 15:50:28 +0100
+
 passbolt-api (2.3.0+pro-1~2018091300) unstable; urgency=medium
 
   * Add DirectorySync plugin in pro
