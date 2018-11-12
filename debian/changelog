@@ -1,3 +1,9 @@
+passbolt-api (2.4.0+pro-1~2018111200) unstable; urgency=medium
+
+  * Install LDAP default configuration file
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Mon, 12 Nov 2018 10:45:57 +0100
+
 passbolt-api (2.4.0+pro-1~2018103000) unstable; urgency=medium
 
   * Passbolt API pro 2.4.0
