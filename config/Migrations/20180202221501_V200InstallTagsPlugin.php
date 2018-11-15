@@ -26,7 +26,7 @@ class V200InstallTagsPlugin extends AbstractMigration
     public function up()
     {
         $migrations = new Migrations([
-            'connection' => 'default',
+            'connection' => defined('TEST_IS_RUNNING') && TEST_IS_RUNNING ? 'test': 'default',
             'plugin' => 'Passbolt/Tags',
         ]);
         $migrations->migrate();

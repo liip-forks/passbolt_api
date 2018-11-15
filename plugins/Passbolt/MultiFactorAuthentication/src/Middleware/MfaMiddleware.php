@@ -15,17 +15,20 @@
 namespace Passbolt\MultiFactorAuthentication\Middleware;
 
 use App\Utility\UserAccessControl;
-use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
-use Cake\Network\Exception\ForbiddenException;
 use Cake\Routing\Router;
-use Passbolt\MultiFactorAuthentication\Utility\MfaVerifiedCookie;
 use Passbolt\MultiFactorAuthentication\Utility\MfaSettings;
+use Passbolt\MultiFactorAuthentication\Utility\MfaVerifiedCookie;
 use Passbolt\MultiFactorAuthentication\Utility\MfaVerifiedToken;
 
 class MfaMiddleware
 {
+    /**
+     * @var MfaSettings
+     */
+    private $mfaSettings;
+
     /**
      * {@inheritdoc}
      */
@@ -42,11 +45,12 @@ class MfaMiddleware
                 ->withStatus(302)
                 ->withLocation($this->getVerifyUrl($request));
         }
+
         return $next($request, $response);
     }
 
     /**
-     * @param ServerRequest $request
+     * @param ServerRequest $request request
      * @return bool
      */
     protected function requiredMfaCheck(ServerRequest $request)
@@ -64,20 +68,17 @@ class MfaMiddleware
             '/auth/logout',
             '/logout'
         ];
-        foreach($whitelistedPaths as $path) {
+        foreach ($whitelistedPaths as $path) {
             if (substr($request->getUri()->getPath(), 0, strlen($path)) === $path) {
                 return false;
             }
         }
 
-        // Mfa not setup
+        // Mfa not enabled for org or user
         $uac = new UserAccessControl($user['role']['name'], $user['id']);
-        try {
-            $mfaSettings = MfaSettings::get($uac);
-            if (!$mfaSettings->isVerified()) {
-                return false;
-            }
-        } catch (RecordNotFoundException $exception) {
+        $this->mfaSettings = MfaSettings::get($uac);
+        $providers = $this->mfaSettings->getEnabledProviders();
+        if (!count($providers)) {
             return false;
         }
 
@@ -91,18 +92,19 @@ class MfaMiddleware
     }
 
     /**
-     * @param ServerRequest $request
+     * @param ServerRequest $request request
      * @return string
      */
     protected function getVerifyUrl(ServerRequest $request)
     {
         if (!$request->is('json')) {
-            // @todo provider switch
-            $url = '/mfa/verify/totp';
+            $url = $this->mfaSettings
+                ->getDefaultVerifyUrl(false);
             $url .= '?redirect=' . $request->getUri()->getPath();
         } else {
             $url = '/mfa/verify/error.json';
         }
+
         return Router::url($url, true);
     }
 }

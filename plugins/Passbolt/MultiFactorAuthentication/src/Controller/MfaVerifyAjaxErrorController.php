@@ -14,17 +14,17 @@
  */
 namespace Passbolt\MultiFactorAuthentication\Controller;
 
-use App\Controller\AppController;
-use Cake\Network\Exception\ForbiddenException;
-
-class MfaVerifyAjaxErrorController extends AppController
+class MfaVerifyAjaxErrorController extends MfaController
 {
-
     /**
      * @throw ForbiddenException
+     * @return void
      */
     public function get()
     {
-        throw new ForbiddenException(__('MFA authentication is required.'));
+        // Use AppController:error instead of exception to avoid logging the error
+        $this->error(__('MFA authentication is required.'), [
+            'providers' => $this->mfaSettings->getProvidersVerifyUrls()
+        ], 403);
     }
 }
