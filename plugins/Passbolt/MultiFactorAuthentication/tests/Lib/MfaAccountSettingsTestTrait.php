@@ -29,13 +29,4 @@ trait MfaAccountSettingsTestTrait
         $AccountSettings = TableRegistry::get('Passbolt/AccountSettings.AccountSettings');
         $AccountSettings->createOrUpdateSetting($userId, MfaSettings::MFA, $data);
     }
-
-    public function mockMfaOrgSettings(array $data, string $type = 'configure')
-    {
-        if ($type === 'configure') {
-            Configure::write('passbolt.plugins.multiFactorAuthentication', $data);
-        } else {
-            throw new InternalErrorException('Org config backend type not supported: ' . $type);
-        }
-    }
 }
