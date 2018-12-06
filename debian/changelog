@@ -1,3 +1,9 @@
+passbolt-api (2.6.0+pro-1~2018120601) unstable; urgency=medium
+
+  * Install missing MFA plugin
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Thu, 06 Dec 2018 11:54:06 +0100
+
 passbolt-api (2.6.0+pro-1~2018120600) unstable; urgency=medium
 
   * Passbolt API pro 2.6.0
