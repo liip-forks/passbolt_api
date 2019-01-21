@@ -1,3 +1,9 @@
+passbolt-api (2.6.0+pro-1~2019012100) unstable; urgency=medium
+
+  * LDAP: Allow blacklisting in DB through reporting
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Mon, 21 Jan 2019 11:27:30 +0100
+
 passbolt-api (2.6.0+pro-1~2018120601) unstable; urgency=medium
 
   * Install missing MFA plugin
