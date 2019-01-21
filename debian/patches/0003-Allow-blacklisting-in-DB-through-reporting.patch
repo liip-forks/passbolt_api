@@ -1,0 +1,24 @@
+From 7fd20b0a2318170c6e182d69f09f1c23784fc7a3 Mon Sep 17 00:00:00 2001
+From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
+Date: Mon, 21 Jan 2019 11:25:52 +0100
+Subject: Allow blacklisting in DB through reporting
+
+---
+ .../DirectorySync/src/Actions/Traits/SyncAddTrait.php         | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php b/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php
+index 7cb6bbb045..479d0f3209 100644
+--- a/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php
++++ b/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php
+@@ -157,6 +157,10 @@ trait SyncAddTrait
+             );
+         }
+         $this->addReportItem(new ActionReport($msg, self::ENTITY_TYPE, Alias::ACTION_CREATE, $status, $reportData));
++        $this->addReportItem(new ActionReport(
++            __('To ignore this entry, please run: ./bin/cake directory_sync ignore-create --id={0} --model=DirectoryEntries', $entry['id']),
++            self::ENTITY_TYPE, Alias::ACTION_CREATE, Alias::STATUS_IGNORE, $reportData));
++
+ 
+         if ($status == Alias::STATUS_SUCCESS && self::ENTITY_TYPE == Alias::MODEL_GROUPS) {
+             $this->handleGroupUsersAfterGroupCreate($data, $entity);
