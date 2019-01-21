@@ -157,6 +157,10 @@ trait SyncAddTrait
             );
         }
         $this->addReportItem(new ActionReport($msg, self::ENTITY_TYPE, Alias::ACTION_CREATE, $status, $reportData));
+        $this->addReportItem(new ActionReport(
+            __('To ignore this entry, please run: ./bin/cake directory_sync ignore-create --id={0} --model=DirectoryEntries', $entry['id']),
+            self::ENTITY_TYPE, Alias::ACTION_CREATE, Alias::STATUS_IGNORE, $reportData));
+
 
         if ($status == Alias::STATUS_SUCCESS && self::ENTITY_TYPE == Alias::MODEL_GROUPS) {
             $this->handleGroupUsersAfterGroupCreate($data, $entity);
