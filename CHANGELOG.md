@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.1]
+### Improved
+- PASSBOLT-3273: Username and password should not be compulsory in email settings, in web installer
+
+### Fixed
+- PASSBOLT-3281: LDAP: fixed case issue in AllSync tasks calls
+- PASSBOLT-3282: LDAP: defaultUser or defaultGroupAdminUser should not break the form if corresponding to a non existing user
+- PASSBOLT-3267: The exceptions thrown by the DirectorySync controllers should be explicit
+- PASSBOLT-3268: BaseDN should not be mandatory
+- PASSBOLT-3269: Search on administration screen should be disabled
+
 ## [2.6.0] - 2018-12-04
 ### Added
 - PASSBOLT-3130: As an admin I can configure my user directory integration from the administration panel
@@ -600,7 +611,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - AD: Admin
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.6.1...HEAD
+[2.6.0]: https://github.com/passbolt/passbolt_api/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/passbolt/passbolt_api/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/passbolt/passbolt_api/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/passbolt/passbolt_api/compare/v2.3.0...v2.4.0
