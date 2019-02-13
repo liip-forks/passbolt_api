@@ -2,9 +2,34 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [unreleased]
+
+## [2.7.0] - 2019-02-12
+### Added
+- PASSBOLT-2995: As LU I should be able to copy the permalink of a password
+
+### Improved
+- PASSBOLT-3401: LDAP: Improve output given by command 'directory_sync test'
+- PASSBOLT-3403: As LU I should export only selected passwords
+- PASSBOLT-3397: Remove the list of secrets from the API request while loading the list of passwords
+- PASSBOLT-3319: As LU I should retrieve a secret when I'm editing it
+- PASSBOLT-3318: As LU I should retrieve a secret when I'm copying it
+- PASSBOLT-3317: Display significant information as soon as possible while opening the application
+- PASSBOLT-3312: As GM adding a user to a group I should see a relevant feedback in case of network/proxy errors
+- PASSBOLT-3314: Improve the performance of the application by adding missing indexes
+- PASSBOLT-2974: As LU I should be able to follow links targeting passwords from my emails
+
+### Fixed
+- PASSBOLT-3406: LDAP: Fix bug "user_id is null when a user that is associated to a group is deleted"
+- PASSBOLT-3401: LDAP: fix 'filters groupsParentGroup and usersParentGroup are not compatible with openldap'
+- PASSBOLT-3363: The webinstaller should not use the exec php primitive to create/import the gpg server key
+- PASSBOLT-3370: Auth verify error should not leak data
+- PASSBOLT-3368: Fix html injection in email
+
 ## [2.6.1]
 ### Improved
 - PASSBOLT-3273: Username and password should not be compulsory in email settings, in web installer
+- PASSBOLT-3247: Add a large dummy data scenario to the passbolt_test_data module
 
 ### Fixed
 - PASSBOLT-3281: LDAP: fixed case issue in AllSync tasks calls
@@ -611,8 +636,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - AD: Admin
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.6.1...HEAD
-[2.6.0]: https://github.com/passbolt/passbolt_api/compare/v2.6.0...v2.6.1
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/passbolt/passbolt_api/compare/v2.6.1...v2.7.0
+[2.6.1]: https://github.com/passbolt/passbolt_api/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/passbolt/passbolt_api/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/passbolt/passbolt_api/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/passbolt/passbolt_api/compare/v2.3.0...v2.4.0
