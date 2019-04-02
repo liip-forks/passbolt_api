@@ -1,3 +1,10 @@
+passbolt-api (2.8.2+pro-1~2019040201) unstable; urgency=medium
+
+  * Remove dh_phpcomposer
+  * Add requirements.php to /etc/passbolt/
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 11:06:40 +0200
+
 passbolt-api (2.8.2+pro-1~2019040200) unstable; urgency=medium
 
   * Passbolt API pro 2.8.2
