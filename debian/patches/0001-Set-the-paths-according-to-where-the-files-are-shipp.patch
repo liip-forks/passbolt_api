@@ -1,4 +1,4 @@
-From 1185f4b5d4d09eb3bc98cf6424099001fc5c27fe Mon Sep 17 00:00:00 2001
+From 740e9883d8e88a10e27d36e65339a20ac3e889a3 Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:13:27 +0100
 Subject: Set the paths according to where the files are shipped
@@ -10,8 +10,8 @@ Subject: Set the paths according to where the files are shipped
 ---
  bin/cake.php      |  4 ++--
  config/paths.php  | 20 +++++++++++++++-----
- webroot/index.php |  2 +-
- 3 files changed, 18 insertions(+), 8 deletions(-)
+ webroot/index.php |  4 ++--
+ 3 files changed, 19 insertions(+), 9 deletions(-)
 
 diff --git a/bin/cake.php b/bin/cake.php
 index 68cd5b4db2..eb6cfac61c 100644
@@ -88,9 +88,18 @@ index 95a7e0f286..31f961957a 100644
  /**
   * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
 diff --git a/webroot/index.php b/webroot/index.php
-index 3c895caf12..6ed1f72609 100644
+index 3c895caf12..f71d19b566 100644
 --- a/webroot/index.php
 +++ b/webroot/index.php
+@@ -14,7 +14,7 @@
+  * @since         0.2.9
+  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+  */
+-require dirname(__DIR__) . '/config/requirements.php';
++require '/etc/passbolt/config/requirements.php';
+ 
+ // for built-in server
+ if (php_sapi_name() === 'cli-server') {
 @@ -32,7 +32,7 @@ use App\Application;
  use Cake\Http\Server;
  
