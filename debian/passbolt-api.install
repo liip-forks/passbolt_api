@@ -16,16 +16,17 @@ webroot/.htaccess /usr/share/php/passbolt-api/webroot
 webroot/index.php /usr/share/php/passbolt-api/webroot
 
 # Configuration files
-config/gpg/ /etc/passbolt/
-config/app.default.php /etc/passbolt/
-config/bootstrap.php /etc/passbolt/
-config/bootstrap_cli.php /etc/passbolt/
-config/default.php /etc/passbolt/
-config/file_storage.php /etc/passbolt/
+config/gpg/                 /etc/passbolt/
+config/app.default.php      /etc/passbolt/
+config/bootstrap.php        /etc/passbolt/
+config/bootstrap_cli.php    /etc/passbolt/
+config/default.php          /etc/passbolt/
+config/file_storage.php     /etc/passbolt/
 config/passbolt.default.php /etc/passbolt/
-config/paths.php /etc/passbolt/
-config/routes.php /etc/passbolt/
-config/version.php /etc/passbolt/
+config/paths.php            /etc/passbolt/
+config/requirements.php     /etc/passbolt/
+config/routes.php           /etc/passbolt/
+config/version.php          /etc/passbolt/
 
 # DB config
 config/Migrations /usr/share/php/passbolt-api/config/
