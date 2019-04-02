@@ -1,0 +1,8 @@
+include:
+  - project: 'sysadmins/debifiers/common'
+    file: '/debify-gitlab-ci.yml'
+
+variables:
+  LIIP_REPO_PORT: 2201
+  LIIP_REPO_HOST: "liip@passbolt-packages.liip.ch"
+  LIIP_REPREPRO_INCOMING: "~/passbolt-packages-incoming/"
