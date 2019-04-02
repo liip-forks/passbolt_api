@@ -81,5 +81,3 @@ Description: Passbolt API - Password Manager for teams - PHP libs
  using passbolt.
  .
  This is all PHP libraries needed by Passbolt.
- Would be Depends: ${phpcomposer:Debian-require},
- Would be Recommends: ${phpcomposer:Debian-recommend},
