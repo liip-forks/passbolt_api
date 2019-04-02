@@ -1,36 +1,4 @@
-passbolt-api (2.8.2+pro-1~2019040205) unstable; urgency=medium
-
-  * dh_link takes the same order as ln
-
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 12:22:42 +0200
-
-passbolt-api (2.8.2+pro-1~2019040204) unstable; urgency=medium
-
-  * Fix webroot paths
-  * Add two missing links
-
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 12:16:07 +0200
-
-passbolt-api (2.8.2+pro-1~2019040203) unstable; urgency=medium
-
-  * Fix bin/cake.php paths
-
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 11:48:09 +0200
-
-passbolt-api (2.8.2+pro-1~2019040202) unstable; urgency=medium
-
-  * Install missing packages
-
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 11:37:39 +0200
-
-passbolt-api (2.8.2+pro-1~2019040201) unstable; urgency=medium
-
-  * Remove dh_phpcomposer
-  * Add requirements.php to /etc/passbolt/
-
- -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 11:06:40 +0200
-
-passbolt-api (2.8.2+pro-1~2019040200) unstable; urgency=medium
+passbolt-api (2.8.2+pro-1~2019040206) unstable; urgency=medium
 
   * Passbolt API pro 2.8.2
 
