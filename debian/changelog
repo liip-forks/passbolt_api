@@ -1,3 +1,9 @@
+passbolt-api (2.8.2+pro-1~2019040203) unstable; urgency=medium
+
+  * Fix bin/cake.php paths
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 11:48:09 +0200
+
 passbolt-api (2.8.2+pro-1~2019040202) unstable; urgency=medium
 
   * Install missing packages
