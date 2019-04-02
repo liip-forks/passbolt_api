@@ -16,6 +16,7 @@ namespace Passbolt\Tags\Test\Lib;
 
 use App\Test\Lib\AppIntegrationTestCase;
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 abstract class TagPluginIntegrationTestCase extends AppIntegrationTestCase
 {
@@ -28,8 +29,14 @@ abstract class TagPluginIntegrationTestCase extends AppIntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-        Configure::write('passbolt.plugins.tags', [
-            'version' => '1.0.0'
-        ]);
+        Configure::write('passbolt.plugins.tags.enabled', true);
+
+        TableRegistry::getTableLocator()->clear();
+        TableRegistry::getTableLocator()->get('Resources');
+    }
+
+    public function tearDown()
+    {
+        TableRegistry::getTableLocator()->clear();
     }
 }

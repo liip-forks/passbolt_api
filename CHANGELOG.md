@@ -4,6 +4,39 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
+## [2.8.2] - 2019-04-01
+### Fixed
+- Fix - Don't enable feature plugins if passbolt is not yet configured
+
+## [2.8.1] - 2019-04-01
+### Fixed
+- Remove PassboltTestData dev tool call from PassboltShell
+
+## [2.8.0] - 2019-04-01
+### Added
+- PB-1: Audit Logs - Browse the resources and see the activity logs to see who is doing what on them
+- PB-3: Quickaccess - Simplified app to access passwords from the browser extension
+
+### Improved
+- PASSBOLT-3327: LDAP: Improve administration UI
+- PASSBOLT-3328: LDAP: Add test connection option
+- PB-2: Upgrade to CakePHP 3.7
+- PB-60: Performance - Add index on tags table
+- PB-95: Implement Import / Export enable switch
+
+### Fixed
+- PASSBOLT-3409: LDAP: Fix "error should be explicit when ldap module is not installed"
+- PASSBOLT-3443: LDAP: Fix "in settings, username and password should not be compulsory fields"
+- PASSBOLT-2121: Fix passbolt should run in a subdirectory
+
+## [2.7.2] - 2019-02-13
+### Fixed
+- PASSBOLT-3417: LDAP: fix regression "settings cannot be saved through the UI".
+
+## [2.7.1] - 2019-02-13
+### Fixed
+- PASSBOLT-3416: Fix the uses of php shortags in the webinstaller template files
+
 ## [2.7.0] - 2019-02-12
 ### Added
 - PASSBOLT-2995: As LU I should be able to copy the permalink of a password
@@ -636,7 +669,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - AP: User with plugin installed
 - AD: Admin
 
-[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.7.0...HEAD
+[Unreleased]: https://github.com/passbolt/passbolt_api/compare/v2.8.2...HEAD
+[2.8.2]: https://github.com/passbolt/passbolt_api/compare/v2.8.1...v2.8.2
+[2.8.1]: https://github.com/passbolt/passbolt_api/compare/v2.8.0...v2.8.1
+[2.8.0]: https://github.com/passbolt/passbolt_api/compare/v2.7.2...v2.8.0
+[2.7.2]: https://github.com/passbolt/passbolt_api/compare/v2.7.1...v2.7.2
+[2.7.1]: https://github.com/passbolt/passbolt_api/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/passbolt/passbolt_api/compare/v2.6.1...v2.7.0
 [2.6.1]: https://github.com/passbolt/passbolt_api/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/passbolt/passbolt_api/compare/v2.5.0...v2.6.0

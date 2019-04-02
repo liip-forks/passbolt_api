@@ -1,4 +1,4 @@
-From c96fb7b026c238db15c95b5f7724b4000c5467f1 Mon Sep 17 00:00:00 2001
+From 2cdc977926a7c8ca6a5f2ff18e1d47b82777a36e Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 21 Jan 2019 11:25:52 +0100
 Subject: Allow blacklisting in DB through reporting
@@ -8,7 +8,7 @@ Subject: Allow blacklisting in DB through reporting
  1 file changed, 4 insertions(+)
 
 diff --git a/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php b/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php
-index 7cb6bbb045..479d0f3209 100644
+index f4baa0124a..688e2e7099 100644
 --- a/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php
 +++ b/plugins/Passbolt/DirectorySync/src/Actions/Traits/SyncAddTrait.php
 @@ -157,6 +157,10 @@ trait SyncAddTrait

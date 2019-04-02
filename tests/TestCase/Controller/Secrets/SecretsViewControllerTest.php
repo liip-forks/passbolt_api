@@ -17,13 +17,14 @@ namespace App\Test\TestCase\Controller\Secrets;
 
 use App\Test\Lib\AppIntegrationTestCase;
 use App\Utility\UuidFactory;
-use Cake\ORM\TableRegistry;
 
 class SecretsViewControllerTest extends AppIntegrationTestCase
 {
-    public $fixtures = ['app.Base/users', 'app.Base/secrets'];
+    public $fixtures = [
+        'app.Base/Users', 'app.Base/Secrets', 'plugin.Passbolt/Log.Base/SecretAccesses'
+    ];
 
-    public function testSuccess()
+    public function testSecretsViewControllerSuccess()
     {
         $this->authenticateAs('dame');
         $resourceId = UuidFactory::uuid('resource.id.apache');
@@ -33,14 +34,14 @@ class SecretsViewControllerTest extends AppIntegrationTestCase
         $this->assertSecretAttributes($this->_responseJsonBody);
     }
 
-    public function testErrorNotAuthenticated()
+    public function testSecretsViewControllerErrorNotAuthenticated()
     {
         $resourceId = UuidFactory::uuid('resource.id.apache');
         $this->getJson("/secrets/resource/$resourceId.json?api-version=2");
         $this->assertAuthenticationError();
     }
 
-    public function testErrorNotValidId()
+    public function testSecretsViewControllerErrorNotValidId()
     {
         $this->authenticateAs('dame');
         $resourceId = 'invalid-id';
@@ -48,7 +49,7 @@ class SecretsViewControllerTest extends AppIntegrationTestCase
         $this->assertError(400, 'The resource id is not valid.');
     }
 
-    public function testErrorNotFound()
+    public function testSecretsViewControllerErrorNotFound()
     {
         $this->authenticateAs('ada');
         $resourceId = UuidFactory::uuid('resource.id.april');

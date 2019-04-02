@@ -1,20 +1,19 @@
 <?php
 /**
  * Passbolt ~ Open source password manager for teams
- * Copyright (c) Passbolt SARL (https://www.passbolt.com)
+ * Copyright (c) Passbolt SA (https://www.passbolt.com)
  *
  * Licensed under GNU Affero General Public License version 3 of the or any later version.
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Passbolt SARL (https://www.passbolt.com)
+ * @copyright     Copyright (c) Passbolt SA (https://www.passbolt.com)
  * @license       https://opensource.org/licenses/AGPL-3.0 AGPL License
  * @link          https://www.passbolt.com Passbolt(tm)
  * @since         2.0.0
  */
 namespace App\Test\Lib;
 
-use App\Test\Lib\Model\AvatarsModelTrait;
 use App\Test\Lib\Model\CommentsModelTrait;
 use App\Test\Lib\Model\FavoritesModelTrait;
 use App\Test\Lib\Model\GroupsModelTrait;
@@ -35,7 +34,6 @@ abstract class AppTestCase extends TestCase
     // Do not load all the traits here
     // load them were needed instead
     use ArrayTrait;
-    use AvatarsModelTrait;
     use CommentsModelTrait;
     use EntityTrait;
     use FavoritesModelTrait;
@@ -56,9 +54,7 @@ abstract class AppTestCase extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->initAvatarEvents();
-        // The tests should configure themselves their environment.
-        Configure::write('passbolt.plugins', []);
+        Configure::write('passbolt.plugins.tags.enabled', false);
     }
 
     /**
