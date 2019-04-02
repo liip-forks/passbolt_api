@@ -1,4 +1,4 @@
-From 4de5897af8cd04c7b7612501f26fa6b5c476a9cf Mon Sep 17 00:00:00 2001
+From 1185f4b5d4d09eb3bc98cf6424099001fc5c27fe Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 5 Feb 2018 17:13:27 +0100
 Subject: Set the paths according to where the files are shipped
@@ -8,16 +8,16 @@ Subject: Set the paths according to where the files are shipped
  * Variable files (cold cache and GPG keys) go to /var/lib/passbolt/
  * Logs go to /var/log/passbolt/
 ---
- bin/cake.php      |  2 +-
+ bin/cake.php      |  4 ++--
  config/paths.php  | 20 +++++++++++++++-----
  webroot/index.php |  2 +-
- 3 files changed, 17 insertions(+), 7 deletions(-)
+ 3 files changed, 18 insertions(+), 8 deletions(-)
 
 diff --git a/bin/cake.php b/bin/cake.php
-index 68cd5b4db2..7da1e5dd9f 100644
+index 68cd5b4db2..eb6cfac61c 100644
 --- a/bin/cake.php
 +++ b/bin/cake.php
-@@ -1,7 +1,7 @@
+@@ -1,10 +1,10 @@
  #!/usr/bin/php -q
  <?php
  // Check platform requirements
@@ -26,6 +26,11 @@ index 68cd5b4db2..7da1e5dd9f 100644
  require dirname(__DIR__) . '/vendor/autoload.php';
  use App\Application;
  use Cake\Console\CommandRunner;
+ // Build the runner with an application and root executable name.
+-$runner = new CommandRunner(new Application(dirname(__DIR__) . '/config'), 'cake');
++$runner = new CommandRunner(new Application('/etc/passbolt'), 'cake');
+ exit($runner->run($argv));
+\ No newline at end of file
 diff --git a/config/paths.php b/config/paths.php
 index 95a7e0f286..31f961957a 100644
 --- a/config/paths.php
