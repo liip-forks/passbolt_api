@@ -1,3 +1,10 @@
+passbolt-api (2.8.2+pro-1~2019040204) unstable; urgency=medium
+
+  * Fix webroot paths
+  * Add two missing links
+
+ -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 02 Apr 2019 12:16:07 +0200
+
 passbolt-api (2.8.2+pro-1~2019040203) unstable; urgency=medium
 
   * Fix bin/cake.php paths
