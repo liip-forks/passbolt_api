@@ -2,5 +2,5 @@
 /usr/share/javascript/passbolt-app /usr/share/php/passbolt-api/webroot/js/app
 /var/lib/passbolt/img/public /usr/share/php/passbolt-api/webroot/img/public
 # cakephp
-/etc/passbolt/Migrations /usr/share/php/passbolt-api/config/Migrations
-/etc/passbolt/Seeds /usr/share/php/passbolt-api/config/Seeds
+/usr/share/php/passbolt-api/config/Migrations /etc/passbolt/Migrations
+/usr/share/php/passbolt-api/config/Seeds      /etc/passbolt/Seeds
