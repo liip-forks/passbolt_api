@@ -48,9 +48,7 @@ $(function () {
     {
         rollStatus();
         const installUrl = `${baseUrl}install/installation/do_install.json`;
-        const response = await fetch(installUrl, {
-          credentials: "same-origin"
-        });
+        const response = await fetch(installUrl);
         clearTimeout(rollStatusTimeout);
         const json = await response.json();
         if (response.ok) {

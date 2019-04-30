@@ -255,27 +255,24 @@ class SaveTest extends AppTestCase
 
     public function testRuleUsernameIsUnique()
     {
-        $data = self::getDummyUser(['username' => 'ada@passbolt.com']);
+        $persistedUser = self::getPersistedUser();
+
+        $data = self::getDummyUser([
+            'username' => $persistedUser['username']
+        ]);
+
         $options = self::getEntityDefaultOptions();
+
         $entity = $this->Users->newEntity($data, $options);
+
         $save = $this->Users->save($entity);
-        $errors = $entity->getErrors();
 
         $this->assertFalse($save);
-        $this->assertNotEmpty($errors);
-        $this->assertNotNull($errors['username']['uniqueUsername']);
-    }
 
-    public function testRuleUsernameIsUnique_DeletedUser()
-    {
-        $data = self::getDummyUser(['username' => 'sofia@passbolt.com']);
-        $options = self::getEntityDefaultOptions();
-        $entity = $this->Users->newEntity($data, $options);
-        $save = $this->Users->save($entity);
         $errors = $entity->getErrors();
 
-        $this->assertTrue(($save !== false));
-        $this->assertEmpty($errors);
+        $this->assertNotEmpty($errors);
+        $this->assertNotNull($errors['username']['uniqueUsername']);
     }
 
     public function testRuleRoleIdExists()

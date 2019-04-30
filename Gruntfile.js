@@ -89,12 +89,6 @@ module.exports = function(grunt) {
           src: ['openpgp.min.js'],
           dest: paths.js + 'vendors',
           expand: true
-        }, {
-          // jQuery
-          cwd: paths.node_modules + 'jquery/dist',
-          src: ['jquery.min.js'],
-          dest: paths.js + 'vendors',
-          expand: true
         }]
       },
       appjs: {

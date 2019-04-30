@@ -1,3 +1,4 @@
 0001-Set-the-paths-according-to-where-the-files-are-shipp.patch
 0002-Set-the-GnuPG-homedir-in-var-lib-passbolt-gnupghome..patch
 0003-Allow-blacklisting-in-DB-through-reporting.patch
+0004-Allow-to-entirely-bypass-the-license-check-with-a-hi.patch

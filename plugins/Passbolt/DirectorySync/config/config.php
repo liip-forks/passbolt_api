@@ -38,16 +38,16 @@ return [
                     ],
                     'openldap' => [
                         'user' => [
-                            'id' => 'guid',
+                            'id' => 'entryUUID',
                             'firstname' => 'firstName',
                             'lastname' => 'lastName',
-                            'username' => 'emailAddress',
+                            'username' => 'mail',
                             'created' => 'created',
                             'modified' => 'modified',
                         ],
                         'group' => [
-                            'id' => 'guid',
-                            'name' => 'name',
+                            'id' => 'entryUUID',
+                            'name' => 'cn',
                             'created' => 'created',
                             'modified' => 'modified',
                             'users' => 'members',

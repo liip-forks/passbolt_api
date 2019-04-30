@@ -142,13 +142,7 @@ trait EntitiesHistoryTrait
     {
         $table = $event->getSubject();
         $modelName = $table->getAlias();
-        try {
-            $userAction = UserAction::getInstance();
-        } catch (\Exception $exception) {
-            // preventing the app to fail if no user action is set
-            // we consider the log operation is not needed
-            return;
-        }
+        $userAction = UserAction::getInstance();
 
         if ($this->isLogOperationNeeded($event, $userAction->getActionName())) {
             $entity = $event->getData()['entity'];

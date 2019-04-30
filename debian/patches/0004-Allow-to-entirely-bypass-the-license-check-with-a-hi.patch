@@ -1,0 +1,25 @@
+From b77a45bc2f39bab0118c006b62b75d8e7002eaa9 Mon Sep 17 00:00:00 2001
+From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
+Date: Tue, 30 Apr 2019 11:09:11 +0200
+Subject: Allow to entirely bypass the license check with a 'hidden'
+ configuration boolean
+
+---
+ plugins/Passbolt/License/src/Utility/License.php | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/plugins/Passbolt/License/src/Utility/License.php b/plugins/Passbolt/License/src/Utility/License.php
+index a77a2b8c3c..5721acf5ab 100644
+--- a/plugins/Passbolt/License/src/Utility/License.php
++++ b/plugins/Passbolt/License/src/Utility/License.php
+@@ -56,6 +56,10 @@ class License
+      */
+     public function validate()
+     {
++        if (Configure::read('passbolt.plugins.license.alwaysvalid')) {
++            return true;
++        }
++
+         $licenseInfo = $this->getInfo();
+ 
+         $expiryDate = $licenseInfo['expiry'];

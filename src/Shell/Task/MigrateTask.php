@@ -70,7 +70,7 @@ class MigrateTask extends AppShell
         // Migration task
         $this->out(' ' . __('Running migration scripts.'));
         $this->hr();
-        $cmd = $this->_formatCmd('migrations migrate --no-lock');
+        $cmd = $this->_formatCmd('migrations migrate');
         $result = ($this->dispatchShell($cmd) === self::CODE_SUCCESS);
 
         // Clean cache
