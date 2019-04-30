@@ -1,4 +1,4 @@
-From b77a45bc2f39bab0118c006b62b75d8e7002eaa9 Mon Sep 17 00:00:00 2001
+From ab9e6096166f4f2b378693883dca32c05a7ecb1a Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Tue, 30 Apr 2019 11:09:11 +0200
 Subject: Allow to entirely bypass the license check with a 'hidden'
