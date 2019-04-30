@@ -1,6 +1,7 @@
-passbolt-api (2.9.0+pro-1~2019042900) unstable; urgency=medium
+passbolt-api (2.9.0+pro-1~2019042901) unstable; urgency=medium
 
   * Passbolt API pro 2.9.0
+    - Allow to entirely bypass the license check with a 'hidden' configuration boolean
 
  -- Didier Raboud (Liip) <didier.raboud@liip.ch>  Tue, 30 Apr 2019 10:32:14 +0200
 
