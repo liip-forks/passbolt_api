@@ -56,6 +56,10 @@ class License
      */
     public function validate()
     {
+        if (Configure::read('passbolt.plugins.license.alwaysvalid')) {
+            return true;
+        }
+
         $licenseInfo = $this->getInfo();
 
         $expiryDate = $licenseInfo['expiry'];
