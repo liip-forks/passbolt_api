@@ -1,4 +1,4 @@
-From dc955b482eb34c05d42a2056d59a3187aa111c3d Mon Sep 17 00:00:00 2001
+From cb6a160ae591c9391d15c091e08d5cd23571b077 Mon Sep 17 00:00:00 2001
 From: Didier 'OdyX' Raboud <didier.raboud@liip.ch>
 Date: Mon, 21 Jan 2019 11:25:52 +0100
 Subject: Allow blacklisting in DB through reporting
